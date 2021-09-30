@@ -55,15 +55,25 @@ class PlayerSpider(scrapy.Spider):
         Age = response.xpath("//p[contains(text(), 'Age')]/span/text()").get()
         PreferredPositions = "/".join(response.xpath(
             "//p[contains(text(), 'Preferred Positions ')]/span/a/@title").getall())
-        PlayerWorkRate = response.xpath(
-            "//p[contains(text(), 'Player Work Rate')]/span/text()").get().replace(" ", "")
+        PlayerWorkRate = 'NA'
+        PlayerWorkRateTemp = response.xpath(
+            "//p[contains(text(), 'Player Work Rate')]/span/text()").get()
+        if PlayerWorkRateTemp is not None:
+            PlayerWorkRate.replace(" ", "")
         WeakFoot = str(len(response.xpath("//p[contains(text(), 'Weak Foot')]//i[contains(@class, 'fas')]")))
         SkillMoves = str(len(response.xpath("//p[contains(text(), 'Skill Moves')]//i[contains(@class, 'fas')]")))
         try:
-            Value = response.xpath(
-                "//p[contains(text(), 'Value')]/span[last()]/text()").get().strip("€").replace(".", "")
-            Wage = response.xpath(
-                "//p[contains(text(), 'Wage')]/span[last()]/text()").get().strip("€").replace(".", "")
+            Value = 'NA'
+            ValueTemp = response.xpath(
+                "//p[contains(text(), 'Value')]/span[last()]/text()").get()
+            if ValueTemp is not None:
+                Value = ValueTemp.strip("€").replace(".", "")
+
+            Wage = 'NA'
+            WageTemp = response.xpath(
+                "//p[contains(text(), 'Wage')]/span[last()]/text()").get()
+            if WageTemp is not None:
+                Wage = WageTemp.strip("€").replace(".", "")
             player.add_value("Value", Value)
             player.add_value("Wage", Wage)
         except e:
@@ -237,10 +247,12 @@ class PlayerSpider(scrapy.Spider):
 
 def crawl_job():
     settings = get_project_settings()
+    date_time = dt.datetime.now().strftime("%m-%d-%Y")
+    filename = "players-"+date_time+".csv"
     runner = CrawlerRunner({
             'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
             "FEEDS": {
-                "players.csv": {"format": "csv"}
+                filename: {"format": "csv"}
             }
         })
     return runner.crawl(PlayerSpider)
