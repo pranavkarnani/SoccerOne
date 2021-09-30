@@ -4,6 +4,7 @@ import logging
 import pandas as pd
 import datetime as dt
 
+from scraper.FantasyPL import getFantasyPL
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
 from scrapy.utils.project import get_project_settings
@@ -25,9 +26,13 @@ class PlayerSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response, **kwargs):
+        count = 0
         playerTable = (response.xpath(
             '//table[@class="table table-striped table-players"]/tbody/tr/td/figure[@class="player"]/a/@href').getall())
         for player in playerTable:
+            count+=1
+            if count == 10:
+                break
             playerUrl = 'https://www.fifaindex.com' + player
             yield scrapy.Request(url=playerUrl, callback=self.parse_player)
 
@@ -244,7 +249,6 @@ class PlayerSpider(scrapy.Spider):
 
         yield player.load_item()
 
-
 def crawl_job():
     settings = get_project_settings()
     date_time = dt.datetime.now().strftime("%m-%d-%Y")
@@ -267,6 +271,7 @@ def schedule_next_crawl(null, hour, minute):
 
 
 def crawl_url():
+    getFantasyPL()
     configure_logging()
     print('crawling')
     d = crawl_job()

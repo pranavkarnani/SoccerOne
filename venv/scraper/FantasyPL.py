@@ -1,7 +1,6 @@
 import pandas as pd
 import requests
 
-
 def getFantasyPL():
     response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
     data = response.json()
