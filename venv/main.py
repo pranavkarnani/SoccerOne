@@ -1,4 +1,4 @@
 import scraper
 
-scraper.fifa_player_url_crawl()
+scraper.fifaCrawl()
 # scraper.fifa_player_stats_crawl()

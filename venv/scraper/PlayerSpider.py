@@ -1,26 +1,44 @@
-from models.Player import Player
 import scrapy
+import time
+import logging
 import pandas as pd
+import datetime as dt
+
+from twisted.internet import reactor
+from scrapy.crawler import CrawlerRunner
+from scrapy.utils.project import get_project_settings
+from scrapy.utils.log import configure_logging
 from itemloaders import ItemLoader
-from scrapy.crawler import CrawlerProcess
+from models.Player import Player
 
 
-class FifaSpider(scrapy.Spider):
-    name = "fifastats "
+class PlayerSpider(scrapy.Spider):
+    name = "players"
     domain = "https://www.fifaindex.com/"
 
     def start_requests(self):
-        count = 0
-        data = pd.read_csv('/Users/pranavkarnani/PycharmProjects/SoccerOne/players_urls.csv')
-        for url in data['url']:
-            count += 1
-            if count == 10:
-                break
+        start_urls = [
+            'https://www.fifaindex.com/players/fifa21_486/?gender=0&league=13&order=desc'
+        ]
+        logging.log(logging.INFO, "Loading requests")
+        for url in start_urls:
             yield scrapy.Request(url=url, callback=self.parse)
-        players = pd.DataFrame(player_list, columns=['url'])
-        players.to_csv('/Users/pranavkarnani/project/SoccerOne/venv/player_url.csv')
 
-    def parse(self, response):
+    def parse(self, response, **kwargs):
+        playerTable = (response.xpath(
+            '//table[@class="table table-striped table-players"]/tbody/tr/td/figure[@class="player"]/a/@href').getall())
+        for player in playerTable:
+            playerUrl = 'https://www.fifaindex.com' + player
+            yield scrapy.Request(url=playerUrl, callback=self.parse_player)
+
+        try:
+            time.sleep(0.25)
+            nextPage = response.xpath("//a[contains(text(), 'Next Page')]/@href").get()
+            yield scrapy.Request(response.urljoin(nextPage), callback=self.parse)
+        except error:
+            print(error)
+
+    def parse_player(self, response):
         player = ItemLoader(item=Player())
         ID = str(response.url).split('/')[4]
         Name = response.xpath("//h1/text()").get().strip()
@@ -48,7 +66,7 @@ class FifaSpider(scrapy.Spider):
                 "//p[contains(text(), 'Wage')]/span[last()]/text()").get().strip("€").replace(".", "")
             player.add_value("Value", Value)
             player.add_value("Wage", Wage)
-        except:
+        except e:
             pass
 
         player.add_value("ID", ID)
@@ -77,9 +95,8 @@ class FifaSpider(scrapy.Spider):
             player.add_value("Club_KitNumber", Club_KitNumber)
             player.add_value("Club_JoinedClub", Club_JoinedClub)
             player.add_value("Club_ContractLength", Club_ContractLength)
-        except:
+        except e:
             pass
-
 
         try:
             Nation = response.xpath("//div[h5/a/text()][count(div/p)=2]/h5/a/text()").get()
@@ -88,7 +105,7 @@ class FifaSpider(scrapy.Spider):
             player.add_value("Nation", Nation)
             player.add_value("Nation_Position", Nation_Position)
             player.add_value("Nation_KitNumber", Nation_KitNumber)
-        except:
+        except e:
             pass
 
         BallControl = response.xpath(
@@ -218,21 +235,33 @@ class FifaSpider(scrapy.Spider):
         yield player.load_item()
 
 
-'''
-def crawl():       
-    try:
-        with open("players.csv",'rw+') as f:
-            f.truncate(0)
-    except:
-        pass
-    process = CrawlerProcess()
-    scheduler = TwistedScheduler()
-    scheduler.add_job(process.crawl, 'interval', args=[FifaSpider], days=0)
-    scheduler.start()
-    process.start(False)     
-    scheduler.remove_all_jobs()
+def crawl_job():
+    settings = get_project_settings()
+    runner = CrawlerRunner({
+            'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
+            "FEEDS": {
+                "players.csv": {"format": "csv"}
+            }
+        })
+    return runner.crawl(PlayerSpider)
 
 
-crawl()
-reactor.run()
-'''
+def schedule_next_crawl(null, hour, minute):
+    tomorrow = (
+            dt.datetime.now() + dt.timedelta(days=1)
+    ).replace(hour=hour, minute=minute, second=0, microsecond=0)
+    sleep_time = (tomorrow - dt.datetime.now()).total_seconds()
+    reactor.callLater(sleep_time, crawl_url)
+
+
+def crawl_url():
+    configure_logging()
+    print('crawling')
+    d = crawl_job()
+    d.addCallback(schedule_next_crawl, hour=13, minute=30)
+    d.addErrback(catch_error)
+    reactor.run()
+
+
+def catch_error(failure):
+    print(failure.value)
