@@ -28,7 +28,7 @@ workbook = pd.read_csv(latest_file[0])
 workbook.fillna(0, inplace=True)
 
 #Cleaning for Ball Control and Dribbling
-workbook = workbook[~workbook.BallControl.str.contains("BallControl")]
+workbook = workbook[~workbook.BallControl.str.contains("BallControl",)]
 workbook = workbook[~workbook.Dribbling.str.contains("Dribbling")]
 
 new_workbook = pd.DataFrame()
@@ -53,4 +53,63 @@ new_workbook['Physical'] = (
                             workbook['Jumping'].astype(int)
                             )/7
 
+#Cleaning for Heading,ShotPower,Finishing,LongShots,Curve,FKAcc,Penalties,Volleys
+workbook = workbook[~workbook.Heading.str.contains("Heading")]
+workbook = workbook[~workbook.ShotPower.str.contains("ShotPower")]
+workbook = workbook[~workbook.Finishing.str.contains("Finishing")]
+workbook = workbook[~workbook.LongShots.str.contains("LongShots")]
+workbook = workbook[~workbook.FKAcc.str.contains("FKAcc")]
+workbook = workbook[~workbook.Penalties.str.contains("Penalties", na=False)]
+workbook = workbook[~workbook.Volleys.str.contains("Volleys", na=False)]
+
+new_workbook['Shooting'] =(
+                            workbook['Heading'].astype(int) + workbook['ShotPower'].astype(int) +
+                            workbook['Finishing'].astype(int) + workbook['LongShots'].astype(int) +
+                            workbook['Curve'].astype(int) + workbook['FKAcc'].astype(int) +
+                            workbook['Penalties'].astype(int) + workbook['Volleys'].astype(int)
+                            )/8
+
+
+#Cleaning for Aggression,Reactions,AttPosition,Interceptions,Vision,Composure
+workbook = workbook[~workbook.Aggression.str.contains("Aggression")]
+workbook = workbook[~workbook.Reactions.str.contains("Reactions")]
+workbook = workbook[~workbook.AttPosition.str.contains("AttPosition", na=False)]
+workbook = workbook[~workbook.Interceptions.str.contains("Interceptions", na=False)]
+workbook = workbook[~workbook.Vision.str.contains("Vision", na=False)]
+workbook = workbook[~workbook.Composure.str.contains("Composure", na=False)]
+
+new_workbook['Mental'] =(
+                            workbook['Aggression'].astype(int) + workbook['Reactions'].astype(int) +
+                            workbook['AttPosition'].astype(int) + workbook['Interceptions'].astype(int) +
+                            workbook['Vision'].astype(int) + workbook['Composure'].astype(int)
+                        )/6
+
+#Cleaning for Crossing,Short Pass,Long Pass
+workbook = workbook[~workbook.Crossing.str.contains("Crossing")]
+workbook = workbook[~workbook.ShortPass.str.contains("ShortPass")]
+workbook = workbook[~workbook.LongPass.str.contains("LongPass")]
+
+new_workbook['Passing'] =  (
+                            workbook['Crossing'].astype(int) + workbook['ShortPass'].astype(int) +
+                            workbook['LongPass'].astype(int)
+
+                        )/3
+
+#Cleaning for GKPositioning,GKDiving GKHandling,GKKicking,GKReflexes
+workbook = workbook[~workbook.Crossing.str.contains("GKPositioning")]
+workbook = workbook[~workbook.ShortPass.str.contains("GKDiving")]
+workbook = workbook[~workbook.LongPass.str.contains("GKHandling")]
+workbook = workbook[~workbook.Crossing.str.contains("GKKicking")]
+workbook = workbook[~workbook.ShortPass.str.contains("GKReflexes")]
+
+new_workbook['Goalkeeper'] =  (
+                            workbook['GKPositioning'].astype(int) + workbook['GKDiving'].astype(int) +
+                            workbook['GKHandling'].astype(int) + workbook['GKKicking'].astype(int) +
+                            workbook['GKReflexes'].astype(int)
+                        )/5
+
+new_workbook['Specialities'] = workbook['Specialities']
+
+
 print(new_workbook.head())
+print(new_workbook.info())
