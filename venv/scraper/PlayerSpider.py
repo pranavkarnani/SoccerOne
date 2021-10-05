@@ -12,7 +12,6 @@ from scrapy.utils.log import configure_logging
 from itemloaders import ItemLoader
 from models.Player import Player
 
-
 class PlayerSpider(scrapy.Spider):
     name = "players"
     domain = "https://www.fifaindex.com/"
@@ -103,6 +102,16 @@ class PlayerSpider(scrapy.Spider):
             Club_KitNumber = response.xpath("//div[h5/a/text()][div/p[4]]/div/p[2]/span/text()").get()
             Club_JoinedClub = response.xpath("//div[h5/a/text()][div/p[4]]/div/p[3]/span/text()").get()
             Club_ContractLength = response.xpath("//div[h5/a/text()][div/p[4]]/div/p[4]/span/text()").get()
+
+            if Club == "Tottenham Hotspur":
+                Club = "Tottenham"
+            elif Club == "Wolverhampton Wanderers":
+                Club = "Wolves"
+            elif Club == "West Ham United":
+                Club = "West Ham"
+            elif Club == "Brighton & Hove Albion":
+                Club = "Brighton"
+
             player.add_value("Club", Club)
             player.add_value("Club_Position", Club_Position)
             player.add_value("Club_KitNumber", Club_KitNumber)
