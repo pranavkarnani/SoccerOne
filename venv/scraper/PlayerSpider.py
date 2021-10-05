@@ -19,21 +19,19 @@ class PlayerSpider(scrapy.Spider):
 
     def start_requests(self):
         start_urls = [
-            'https://www.fifaindex.com/players/fifa21_486/?gender=0&league=13&order=desc'
+            'https://www.fifaindex.com/players/?gender=0&league=13&order=desc'
         ]
         logging.log(logging.INFO, "Loading requests")
         for url in start_urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response, **kwargs):
-        count = 0
         playerTable = (response.xpath(
             '//table[@class="table table-striped table-players"]/tbody/tr/td/figure[@class="player"]/a/@href').getall())
+        print(playerTable)
         for player in playerTable:
-            count+=1
-            if count == 10:
-                break
             playerUrl = 'https://www.fifaindex.com' + player
+            print(playerUrl)
             yield scrapy.Request(url=playerUrl, callback=self.parse_player)
 
         try:

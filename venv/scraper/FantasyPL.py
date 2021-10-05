@@ -8,7 +8,7 @@ def getFantasyPL():
     teams_json = data['teams']
     season_player_stats_json = data['elements']
 
-    team_data_columns = ["id", "name", "short_name", "strength", "strength_overall_home", "strength_overall_away",
+    team_data_columns = ["id", "code","name", "short_name", "strength", "strength_overall_home", "strength_overall_away",
                          "strength_attack_home", "strength_attack_away", "strength_defence_home",
                          "strength_defence_away"]
     event_data_columns = ["id", "name", "deadline_time", "finished"]
