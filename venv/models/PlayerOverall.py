@@ -3,7 +3,7 @@ import re
 import datetime
 import pandas as pd
 
-file_list = os.listdir()
+file_list = os.listdir("./venv/data/")
 
 date_pattern = re.compile(r'\b(\d{2})-(\d{2})-(\d{4})\b')
 
@@ -19,13 +19,19 @@ dates = (get_date(fn) for fn in file_list)
 dates = (d for d in dates if d is not None)
 last_date = max(dates) #Getting the latest date
 last_date = last_date.strftime('%m-%d-%Y')
-latest_file = [fn for fn in file_list if last_date in fn] #Getting the file name with the latest date
+latest_file = [fn for fn in file_list if last_date in fn]
+#Getting the file name with the latest date
 
 print(latest_file[0])
 
-workbook = pd.read_csv(latest_file[0])
+workbook = pd.read_csv("./venv/data/"+latest_file[0])
+workbookSeason = pd.read_csv("./venv/data/"+latest_file[0])
 
-workbook.fillna(0, inplace=True)
+workbook = workbook[workbook["Overal"] >= 70]
+soccerOneColumns = ["SoccerOneID", "FifaID", "FantasyID", "Name", "Position", "Team"]
+soccerOneDF = workbook.merge(workbookSeason, how='inner', left_on=['Name', 'Club'], right_on=['fullname', 'Club'])
+soccerOneDF = soccerOneDF.loc[:,['Name','Club','ID','id']]
+soccerOneDF.to_csv('/../../soccerOneMaster.csv')
 
 #Cleaning for Ball Control and Dribbling
 workbook = workbook[~workbook.BallControl.str.contains("BallControl",)]

@@ -1,3 +1,4 @@
+import os
 import scrapy
 import time
 import logging
@@ -259,7 +260,10 @@ class PlayerSpider(scrapy.Spider):
 def crawl_job():
     settings = get_project_settings()
     date_time = dt.datetime.now().strftime("%m-%d-%Y")
-    filename = "players-"+date_time+".csv"
+    FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
+    ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
+    DATA_PATH = ROOT_DIR + '/data/'
+    filename = DATA_PATH+'players-'+date_time+'.csv'
     runner = CrawlerRunner({
             'USER_AGENT': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
             "FEEDS": {

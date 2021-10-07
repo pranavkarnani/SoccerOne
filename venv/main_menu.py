@@ -1,4 +1,6 @@
+from data_processors.SoccerOneMaster import makeMaster
 
+makeMaster()
 
 while(True):
     print("""

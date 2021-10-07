@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import requests
 from scraper.Fixtures import getFixtures
+import os
 
 
 def refineName(name):
@@ -11,8 +12,10 @@ def refineName(name):
     else:
         return name
 
-
 def getFantasyPL():
+    FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
+    ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH,'..'))
+    DATA_PATH = ROOT_DIR + '/data/'
     response = requests.get("https://fantasy.premierleague.com/api/bootstrap-static/")
     data = response.json()
     events_json = data['events']
@@ -27,7 +30,7 @@ def getFantasyPL():
             item.append(json_object[column])
         events.append(item)
     events_df = pd.DataFrame(events, columns=event_data_columns)
-    events_df.to_csv('events.csv')
+    events_df.to_csv(DATA_PATH+'events.csv')
 
     team_data_columns = ["id", "code", "name", "short_name", "strength", "strength_overall_home",
                          "strength_overall_away",
@@ -49,7 +52,7 @@ def getFantasyPL():
     teams_df['name'] = np.where(teams_df['name'] == 'Spurs', 'Tottenham', teams_df['name'])
     teams_df['name'] = np.where(teams_df['name'] == 'Newcastle', 'Newcastle United', teams_df['name'])
     teams_df = teams_df.rename({'name': 'Club'}, axis=1)
-    teams_df.to_csv('teams.csv')
+    teams_df.to_csv(DATA_PATH+'teams.csv')
 
     getFixtures()
 
@@ -74,4 +77,4 @@ def getFantasyPL():
 
     season_player_stats_df['fullname'] = season_player_stats_df['first_name'] + ' ' + season_player_stats_df['second_name']
     season_player_stats_df['fullname'] = season_player_stats_df['fullname'].apply(refineName)
-    season_player_stats_df.to_csv('season_player_stats_df.csv')
+    season_player_stats_df.to_csv(DATA_PATH+'season_player_stats_df.csv')
