@@ -3,8 +3,9 @@ import re
 import datetime
 import pandas as pd
 
-file_list = os.listdir("./venv/data/")
-
+os.chdir('../')
+file_list = os.listdir("../venv/data/")
+print(file_list)
 date_pattern = re.compile(r'\b(\d{2})-(\d{2})-(\d{4})\b')
 
 # Extracting date for getting the file with the latest date
@@ -22,13 +23,12 @@ last_date = last_date.strftime('%m-%d-%Y')
 latest_file = [fn for fn in file_list if last_date in fn]
 
 #Getting the file name with the latest date
-workbook = pd.read_csv("./venv/data/"+latest_file[0])
-workbookSeason = pd.read_csv("./venv/data/"+latest_file[0])
-
+workbook = pd.read_csv("../venv/data/"+latest_file[0])
+workbookSeason = pd.read_csv("../venv/data/"+latest_file[0])
 
 #Cleaning for Ball Control and Dribbling
-workbook = workbook[~workbook.BallControl.str.contains("BallControl",)]
-workbook = workbook[~workbook.Dribbling.str.contains("Dribbling")]
+workbook = workbook[~workbook.BallControl.astype(str).str.contains("BallControl")]
+workbook = workbook[~workbook.Dribbling.astype(str).str.contains("Dribbling")]
 
 new_workbook = pd.DataFrame()
 new_workbook['Ball_Skills'] = (workbook['BallControl'].astype(int) + workbook['Dribbling'].astype(int))/2
@@ -40,10 +40,10 @@ new_workbook['Defence'] = (workbook['SlideTackle'].astype(int) + workbook['Stand
 
 
 #Cleaning for Acceleration,Stamina,Strength,Balance,SprintSpeed,Agility,Jumping
-workbook = workbook[~workbook.Acceleration.str.contains("Acceleration")]
-workbook = workbook[~workbook.Stamina.str.contains("Stamina")]
-workbook = workbook[~workbook.Strength.str.contains("Strength")]
-workbook = workbook[~workbook.SprintSpeed.str.contains("SprintSpeed")]
+workbook = workbook[~workbook.Acceleration.astype(str).str.contains("Acceleration")]
+workbook = workbook[~workbook.Stamina.astype(str).str.contains("Stamina")]
+workbook = workbook[~workbook.Strength.astype(str).str.contains("Strength")]
+workbook = workbook[~workbook.SprintSpeed.astype(str).str.contains("SprintSpeed")]
 
 new_workbook['Physical'] = (
                             workbook['Acceleration'].astype(int) + workbook['Stamina'].astype(int) +
@@ -53,13 +53,13 @@ new_workbook['Physical'] = (
                             )/7
 
 #Cleaning for Heading,ShotPower,Finishing,LongShots,Curve,FKAcc,Penalties,Volleys
-workbook = workbook[~workbook.Heading.str.contains("Heading")]
-workbook = workbook[~workbook.ShotPower.str.contains("ShotPower")]
-workbook = workbook[~workbook.Finishing.str.contains("Finishing")]
-workbook = workbook[~workbook.LongShots.str.contains("LongShots")]
-workbook = workbook[~workbook.FKAcc.str.contains("FKAcc")]
-workbook = workbook[~workbook.Penalties.str.contains("Penalties", na=False)]
-workbook = workbook[~workbook.Volleys.str.contains("Volleys", na=False)]
+workbook = workbook[~workbook.Heading.astype(str).str.contains("Heading")]
+workbook = workbook[~workbook.ShotPower.astype(str).str.contains("ShotPower")]
+workbook = workbook[~workbook.Finishing.astype(str).str.contains("Finishing")]
+workbook = workbook[~workbook.LongShots.astype(str).str.contains("LongShots")]
+workbook = workbook[~workbook.FKAcc.astype(str).str.contains("FKAcc")]
+workbook = workbook[~workbook.Penalties.astype(str).str.contains("Penalties", na=False)]
+workbook = workbook[~workbook.Volleys.astype(str).str.contains("Volleys", na=False)]
 
 new_workbook['Shooting'] =(
                             workbook['Heading'].astype(int) + workbook['ShotPower'].astype(int) +
@@ -70,12 +70,12 @@ new_workbook['Shooting'] =(
 
 
 #Cleaning for Aggression,Reactions,AttPosition,Interceptions,Vision,Composure
-workbook = workbook[~workbook.Aggression.str.contains("Aggression")]
-workbook = workbook[~workbook.Reactions.str.contains("Reactions")]
-workbook = workbook[~workbook.AttPosition.str.contains("AttPosition", na=False)]
-workbook = workbook[~workbook.Interceptions.str.contains("Interceptions", na=False)]
-workbook = workbook[~workbook.Vision.str.contains("Vision", na=False)]
-workbook = workbook[~workbook.Composure.str.contains("Composure", na=False)]
+workbook = workbook[~workbook.Aggression.astype(str).str.contains("Aggression")]
+workbook = workbook[~workbook.Reactions.astype(str).str.contains("Reactions")]
+workbook = workbook[~workbook.AttPosition.astype(str).str.contains("AttPosition", na=False)]
+workbook = workbook[~workbook.Interceptions.astype(str).str.contains("Interceptions", na=False)]
+workbook = workbook[~workbook.Vision.astype(str).str.contains("Vision", na=False)]
+workbook = workbook[~workbook.Composure.astype(str).str.contains("Composure", na=False)]
 
 new_workbook['Mental'] =(
                             workbook['Aggression'].astype(int) + workbook['Reactions'].astype(int) +
@@ -84,9 +84,9 @@ new_workbook['Mental'] =(
                         )/6
 
 #Cleaning for Crossing,Short Pass,Long Pass
-workbook = workbook[~workbook.Crossing.str.contains("Crossing")]
-workbook = workbook[~workbook.ShortPass.str.contains("ShortPass")]
-workbook = workbook[~workbook.LongPass.str.contains("LongPass")]
+workbook = workbook[~workbook.Crossing.astype(str).str.contains("Crossing")]
+workbook = workbook[~workbook.ShortPass.astype(str).str.contains("ShortPass")]
+workbook = workbook[~workbook.LongPass.astype(str).str.contains("LongPass")]
 
 new_workbook['Passing'] =  (
                             workbook['Crossing'].astype(int) + workbook['ShortPass'].astype(int) +
@@ -95,11 +95,11 @@ new_workbook['Passing'] =  (
                         )/3
 
 #Cleaning for GKPositioning,GKDiving GKHandling,GKKicking,GKReflexes
-workbook = workbook[~workbook.Crossing.str.contains("GKPositioning")]
-workbook = workbook[~workbook.ShortPass.str.contains("GKDiving")]
-workbook = workbook[~workbook.LongPass.str.contains("GKHandling")]
-workbook = workbook[~workbook.Crossing.str.contains("GKKicking")]
-workbook = workbook[~workbook.ShortPass.str.contains("GKReflexes")]
+workbook = workbook[~workbook.Crossing.astype(str).str.contains("GKPositioning")]
+workbook = workbook[~workbook.ShortPass.astype(str).str.contains("GKDiving")]
+workbook = workbook[~workbook.LongPass.astype(str).str.contains("GKHandling")]
+workbook = workbook[~workbook.Crossing.astype(str).str.contains("GKKicking")]
+workbook = workbook[~workbook.ShortPass.astype(str).str.contains("GKReflexes")]
 
 new_workbook['Goalkeeper'] =  (
                             workbook['GKPositioning'].astype(int) + workbook['GKDiving'].astype(int) +
@@ -108,3 +108,5 @@ new_workbook['Goalkeeper'] =  (
                         )/5
 
 new_workbook['Specialities'] = workbook['Specialities']
+
+print(new_workbook.info())
