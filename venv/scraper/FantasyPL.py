@@ -21,6 +21,12 @@ def getFantasyPL():
     events_json = data['events']
     teams_json = data['teams']
     season_player_stats_json = data['elements']
+    element_types = data['element_types']
+
+    player_pos = {}
+    for item in element_types:
+        player_pos[item['id']] = item['singular_name']
+    player_pos_df = pd.DataFrame(player_pos.items(), columns=['position_id', 'position'])
 
     event_data_columns = ["id", "name", "deadline_time", "finished"]
     events = []
@@ -56,10 +62,10 @@ def getFantasyPL():
 
     getFixtures()
 
-    season_player_stats_columns = ["chance_of_playing_next_round", "chance_of_playing_this_round", "code", "ep_next",
-                                   "ep_this", "event_points", "first_name", "form", "id", "news", "news_added",
-                                   "now_cost",
-                                   "points_per_game", "second_name", "selected_by_percent", "team_code", "total_points",
+    season_player_stats_columns = ["chance_of_playing_next_round", "chance_of_playing_this_round", "code", "element_type",
+                                   "ep_next", "ep_this", "event_points", "first_name", "form", "id", "news", "news_added",
+                                   "now_cost", "points_per_game", "second_name", "selected_by_percent", "team_code",
+                                   "total_points",
                                    "value_form", "value_season", "web_name", "minutes", "goals_scored", "assists",
                                    "clean_sheets", "goals_conceded", "own_goals", "penalties_saved", "penalties_missed",
                                    "yellow_cards", "red_cards", "saves", "bonus", "influence", "creativity", "threat",
@@ -72,6 +78,9 @@ def getFantasyPL():
             item.append(json_object[column])
         season_player_stats.append(item)
     season_player_stats_df = pd.DataFrame(season_player_stats, columns=season_player_stats_columns)
+    season_player_stats_df = season_player_stats_df.merge(player_pos_df, how='left', left_on=['element_type'],
+                                                          right_on=['position_id'])
+
     season_player_stats_df = season_player_stats_df.merge(teams_df[['code', 'Club']],
                                                           how='left', left_on=['team_code'], right_on=['code'])
 

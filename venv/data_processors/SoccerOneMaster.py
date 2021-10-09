@@ -3,9 +3,9 @@ import re
 import datetime
 import pandas as pd
 
-date_pattern = re.compile(r'\b(\d{2})-(\d{2})-(\d{4})\b')
 
 def get_date(filename):
+    date_pattern = re.compile(r'\b(\d{2})-(\d{2})-(\d{4})\b')
     matched = date_pattern.search(filename)
     if not matched:
         return None
@@ -28,7 +28,10 @@ def makeMaster():
     fifa = pd.read_csv(DATA_PATH+latest_file[0])
     fpl = pd.read_csv(DATA_PATH+'season_player_stats_df.csv')
     fifa = fifa[fifa["Overal"] >= 70]
-    soccerOneColumns = ["SoccerOneID", "FifaID", "FantasyID", "Name", "Position", "Team"]
     soccerOneDF = fifa.merge(fpl, how='inner', left_on=['Name', 'Club'], right_on=['fullname', 'Club'])
-    soccerOneDF = soccerOneDF.loc[:, ['Name', 'Club', 'ID', 'id']]
+    print(soccerOneDF.columns)
+    soccerOneDF = soccerOneDF.loc[:, ['Name', 'position', 'Club', 'ID', 'id']]
     soccerOneDF.to_csv(DATA_PATH+'soccerOneMaster.csv')
+
+
+makeMaster()

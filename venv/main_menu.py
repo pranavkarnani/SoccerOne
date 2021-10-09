@@ -1,6 +1,8 @@
 from data_processors.SoccerOneMaster import makeMaster
+from data_processors.FifaCleaner import cleanFifa
 
 makeMaster()
+# cleanFifa()
 
 while(True):
     print("""
@@ -45,6 +47,9 @@ while(True):
                 print("Why we didn't choose...")
             elif (player_pick_selection == "6"):
                 break
+            else:
+                print('Incorrect input')
+                pass
     elif (first_selection == "2"):
         while(True):
             print("""
@@ -73,9 +78,17 @@ while(True):
                 print("Formation reasoning")
             elif (player_stat_position == "5"):
                 break
+            else:
+                print('Incorrect input')
+                pass
     elif (first_selection == "3"):
         print("Upcoming Fixtures")
     elif (first_selection == "4"):
         print("League Standings")
+    elif (first_selection == "5"):
+        break
+    else:
+        print('Incorrect input')
+        pass
 
 
