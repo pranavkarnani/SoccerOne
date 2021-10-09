@@ -108,5 +108,8 @@ new_workbook['Goalkeeper'] =  (
                         )/5
 
 new_workbook['Specialities'] = workbook['Specialities']
-
+new_workbook['ID'] = workbook['ID']
 print(new_workbook.info())
+
+os.chdir('../venv/data/')
+new_workbook.to_csv('player_overall.csv')
