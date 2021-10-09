@@ -113,3 +113,7 @@ print(new_workbook.info())
 
 os.chdir('../venv/data/')
 new_workbook.to_csv('player_overall.csv')
+
+def overall_id(id):
+    return new_workbook.loc[new_workbook['ID'] == id]
+
