@@ -2,6 +2,9 @@ import matplotlib as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
 import PlayerOverall as po
+import plotly.express as px
+import os
+import pandas as pd
 
 def radar_charts_player_stats(*argv):
     categories = ['Ball_Skills', 'Defence', 'Physical', 'Shooting', 'Mental','Passing','Goalkeeper']
@@ -49,6 +52,17 @@ def radar_charts_player_stats(*argv):
 # Testing radar charts
 radar_charts_player_stats(231677,189509)
 
+# Scatter PLot from season player stats
+def scatter_plot_for_player_points(*argv):
+    os.chdir('../data/')
+    df = pd.read_csv("season_player_stats_df.csv")
+    df = df[:25]
+    print(df['points_per_game'])
+    fig = px.scatter(df, x="now_cost", y="points_per_game",
+                     size="now_cost", hover_data=['fullname']) #what should the size be dependent on
+    fig.show()
+
+scatter_plot_for_player_points()
 
 # import plotly.graph_objects as go
 # animals=['giraffes', 'orangutans', 'monkeys']
@@ -60,10 +74,6 @@ radar_charts_player_stats(231677,189509)
 # # Change the bar mode
 # fig.update_layout(barmode='stack')
 # fig.show()
-#
-# import plotly.express as px
-#
-# df = px.data.iris()
-# fig = px.scatter(df, x="sepal_width", y="sepal_length", color="species",
-#                  size='petal_length', hover_data=['petal_width'])
-# fig.show()
+
+
+
