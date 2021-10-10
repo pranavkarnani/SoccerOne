@@ -29,9 +29,8 @@ def makeMaster():
     fpl = pd.read_csv(DATA_PATH+'season_player_stats_df.csv')
     fifa = fifa[fifa["Overal"] >= 70]
     soccerOneDF = fifa.merge(fpl, how='inner', left_on=['Name', 'Club'], right_on=['fullname', 'Club'])
-    print(soccerOneDF.columns)
-    soccerOneDF = soccerOneDF.loc[:, ['Name', 'position', 'Club', 'ID', 'id']]
+    soccerOneDF = soccerOneDF.rename({'ID': 'Fifa_ID'}, axis=1)
+    soccerOneDF = soccerOneDF.rename({'id': 'Fpl_ID'}, axis=1)
+    soccerOneDF = soccerOneDF.loc[:, ['Name', 'position', 'Club', 'Fifa_ID', 'Fpl_ID']]
+
     soccerOneDF.to_csv(DATA_PATH+'soccerOneMaster.csv')
-
-
-makeMaster()
