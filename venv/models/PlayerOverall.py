@@ -3,20 +3,22 @@ import re
 import datetime
 import pandas as pd
 
-
+FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
+ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
+DATA_PATH = ROOT_DIR + '/data/'
 # Extracting date for getting the file with the latest date
 def get_date(filename):
+    date_pattern = re.compile(r'\b(\d{2})-(\d{2})-(\d{4})\b')
     matched = date_pattern.search(filename)
     if not matched:
         return None
     m, d, y = map(int, matched.groups())
     return datetime.date(y, m, d)
 
-if __name__ == "__main__":
-    os.chdir('../')
-    file_list = os.listdir("../venv/data/")
+def Player_Overall_cleaner():
+    file_list = os.listdir(DATA_PATH)
     print(file_list)
-    date_pattern = re.compile(r'\b(\d{2})-(\d{2})-(\d{4})\b')
+
 
     dates = (get_date(fn) for fn in file_list)
     dates = (d for d in dates if d is not None)
@@ -25,8 +27,8 @@ if __name__ == "__main__":
     latest_file = [fn for fn in file_list if last_date in fn]
 
     #Getting the file name with the latest date
-    workbook = pd.read_csv("../venv/data/"+latest_file[0])
-    workbookSeason = pd.read_csv("../venv/data/"+latest_file[0])
+    workbook = pd.read_csv(DATA_PATH+latest_file[0])
+    workbookSeason = pd.read_csv(DATA_PATH+latest_file[0])
 
     #Cleaning for Ball Control and Dribbling
     workbook = workbook[~workbook.BallControl.astype(str).str.contains("BallControl")]
@@ -115,11 +117,11 @@ if __name__ == "__main__":
 
     print(new_workbook.info())
 
-    os.chdir('../venv/data/')
-    new_workbook.to_csv('player_overall.csv')
+    new_workbook.to_csv(DATA_PATH+'player_overall.csv')
 
 def overall_id(id):
     os.chdir('../data/')
     new_workbook = pd.read_csv('player_overall.csv')
     return new_workbook.loc[new_workbook['ID'] == id]
 
+Player_Overall_cleaner()

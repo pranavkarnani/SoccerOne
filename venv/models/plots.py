@@ -5,6 +5,7 @@ import PlayerOverall as po
 import plotly.express as px
 import os
 import pandas as pd
+import plotly.graph_objects as go
 
 def radar_charts_player_stats(*argv):
     categories = ['Ball_Skills', 'Defence', 'Physical', 'Shooting', 'Mental','Passing','Goalkeeper']
@@ -62,18 +63,22 @@ def scatter_plot_for_player_points(*argv):
                      size="now_cost", hover_data=['fullname']) #what should the size be dependent on
     fig.show()
 
-scatter_plot_for_player_points()
+#Testing scatter plot
+scatter_plot_for_player_points(plot_type = )
 
-# import plotly.graph_objects as go
-# animals=['giraffes', 'orangutans', 'monkeys']
-#
-# fig = go.Figure(data=[
-#     go.Bar(name='SF Zoo', x=animals, y=[20, 14, 23]),
-#     go.Bar(name='LA Zoo', x=animals, y=[12, 18, 29])
-# ])
-# # Change the bar mode
-# fig.update_layout(barmode='stack')
-# fig.show()
+def scatter_plot_for_position():
+
+
+def expected_points():
+    animals=['giraffes', 'orangutans', 'monkeys'] #Get the player name in the team
+
+    fig = go.Figure(data=[
+        go.Bar(name='SF Zoo', x=animals, y=[20, 14, 23]),
+        go.Bar(name='LA Zoo', x=animals, y=[12, 18, 29])
+    ])
+    # Change the bar mode
+    fig.update_layout(barmode='stack')
+    fig.show()
 
 
 
