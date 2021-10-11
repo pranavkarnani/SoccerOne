@@ -4,7 +4,6 @@ import re
 import numpy as np
 import pandas as pd
 import datetime
-import knapsack01
 
 FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
 ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
