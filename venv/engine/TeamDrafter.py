@@ -36,7 +36,7 @@ def make_team():
     mids = analyze(soccerOne[soccerOne['position'] == 'Midfielder'], 'Midfielder')
     defs = analyze(soccerOne[soccerOne['position'] == 'Defender'], 'Defender')
     goalies = analyze(soccerOne[soccerOne['position'] == 'Goalkeeper'], 'Goalkeeper')
-
+    return(fwds, mids, defs, goalies)
     # VIZZZZ
 
 
@@ -47,23 +47,27 @@ def analyze(players, player_type):
 
     if player_type == "Forward":
         metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'minutes', 'threat',
+                   'total_points',
                    'selected_by_percent', 'ict_index', 'goals_scored', 'assists', 'form', 'value_season', 'news',
                    'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
     elif player_type == "Midfielder":
         metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'selected_by_percent',
+                   'total_points',
                    'minutes', 'threat', 'ict_index', 'influence', 'creativity', 'assists', 'form', 'value_season',
                    'news', 'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
     elif player_type == "Defender":
         metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'minutes', 'selected_by_percent',
+                   'total_points',
                    'ict_index', 'clean_sheets', 'assists', 'form', 'value_season', 'news', 'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
     elif player_type == "Goalkeeper":
         metrics = ['id', 'ep_this', 'points_per_game', 'selected_by_percent', 'chance_of_playing_this_round',
+                   'total_points',
                    'clean_sheets', 'saves', 'form', 'value_season', 'news', 'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
@@ -76,7 +80,7 @@ def analyze(players, player_type):
     selection_metrics = selection_metrics[selection_metrics['chance_of_playing_this_round'] != 0]
 
     selection_metrics['now_cost'] = selection_metrics['now_cost'] / 10
-    selection_metrics['points_per_game'] = selection_metrics['points_per_game'] * 1.2
+    selection_metrics['total_points'] = selection_metrics['total_points'] * 2
     selection_metrics['selected_by_percent'] = selection_metrics['selected_by_percent'] * 2
     selection_metrics['value_season'] = selection_metrics['value_season'] * 1.2
 
@@ -91,38 +95,39 @@ def analyze(players, player_type):
     players_to_analyze = 25
     if len(normalized_players) <= 25:
         players_to_analyze = len(normalized_players)
-    # normalized_players.to_csv(player_type + ".csv")
-    # normalized_players.loc[0:players_to_analyze, :]
-
-
 
     normalized_players['efficiency'] = normalized_players['aggregate'] / normalized_players['now_cost']
     normalized_players = normalized_players.sort_values(
         by='efficiency', ascending=False).reset_index().drop(["index"], axis=1)
     normalized_players['status'] = 0
+    normalized_players = normalized_players.head(players_to_analyze)
+    return normalized_players
+
+
+def cost_wrapper(players, player_type):
     if player_type == "Forward":
-        selected = cost_analysis(normalized_players, 21, 3)
+        selected = cost_analysis(players, 21, 3)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
         print(selected)
         print(cost)
     elif player_type == "Goalkeeper":
-        selected = cost_analysis(normalized_players, 9, 2)
+        selected = cost_analysis(players, 9, 2)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
         print(selected)
         print(cost)
     elif player_type == "Defender":
-        selected = cost_analysis(normalized_players, 28, 5, player_type)
+        selected = cost_analysis(players, 28, 5, player_type)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
         print(selected)
         print(cost)
     elif player_type == "Midfielder":
-        selected = cost_analysis(normalized_players, 42, 5, player_type)
+        selected = cost_analysis(players, 42, 5, player_type)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
@@ -131,7 +136,6 @@ def analyze(players, player_type):
 
 
 def cost_analysis(players, cost, number, player_type=None):
-
     players_selected = []
     efficient_player_count = int(number / 2)
     top_player_count = 1
