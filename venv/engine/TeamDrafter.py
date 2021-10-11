@@ -36,8 +36,8 @@ def make_team():
     mids = analyze(soccerOne[soccerOne['position'] == 'Midfielder'], 'Midfielder')
     defs = analyze(soccerOne[soccerOne['position'] == 'Defender'], 'Defender')
     goalies = analyze(soccerOne[soccerOne['position'] == 'Goalkeeper'], 'Goalkeeper')
-    topPlayers = fwds.append([mids, defs, goalies], ignore_index=True)
-    # cost_analysis(topPlayers.loc[:, ['Name', 'position', 'Club', 'Fpl_ID', 'Fifa_ID', 'aggregate', 'now_cost']])
+
+    # VIZZZZ
 
 
 def analyze(players, player_type):
@@ -47,17 +47,18 @@ def analyze(players, player_type):
 
     if player_type == "Forward":
         metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'minutes', 'threat',
-                   'ict_index', 'goals_scored', 'assists', 'form', 'value_season', 'news', 'news_added', 'now_cost']
+                   'selected_by_percent', 'ict_index', 'goals_scored', 'assists', 'form', 'value_season', 'news',
+                   'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
     elif player_type == "Midfielder":
-        metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'minutes', 'threat',
-                   'ict_index', 'influence', 'creativity', 'assists', 'form', 'value_season', 'news', 'news_added',
-                   'now_cost']
+        metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'selected_by_percent',
+                   'minutes', 'threat', 'ict_index', 'influence', 'creativity', 'assists', 'form', 'value_season',
+                   'news', 'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
     elif player_type == "Defender":
-        metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'minutes',
+        metrics = ['id', 'ep_this', 'points_per_game', 'chance_of_playing_this_round', 'minutes', 'selected_by_percent',
                    'ict_index', 'clean_sheets', 'assists', 'form', 'value_season', 'news', 'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
@@ -67,68 +68,124 @@ def analyze(players, player_type):
         player_attr = fpl.loc[:, metrics]
 
     selection_metrics = players.loc[:, ['Name', 'position', 'Club', 'Fpl_ID', 'Fifa_ID']].merge(player_attr,
-                                                                                     how="left", left_on='Fpl_ID',
-                                                                                     right_on='id')
+                                                                                                how="left",
+                                                                                                left_on='Fpl_ID',
+                                                                                                right_on='id')
 
+    cost = 100
     selection_metrics = selection_metrics[selection_metrics['chance_of_playing_this_round'] != 0]
+
     selection_metrics['now_cost'] = selection_metrics['now_cost'] / 10
+    selection_metrics['points_per_game'] = selection_metrics['points_per_game'] * 1.2
+    selection_metrics['selected_by_percent'] = selection_metrics['selected_by_percent'] * 2
+    selection_metrics['value_season'] = selection_metrics['value_season'] * 1.2
+
     normalized_players = compute_score(selection_metrics, metrics)
+
     normalized_players['aggregate'] = normalized_players.loc[:,
                                       [col for col in normalized_players.columns if 'soccer_one_' in col]].sum(axis=1)
-    normalized_players['aggregate'] = normalized_players['aggregate']/len(metrics)
+    normalized_players['aggregate'] = normalized_players['aggregate'] / len(metrics)
     normalized_players = normalized_players[normalized_players['aggregate'] > 0]
     normalized_players = normalized_players.sort_values(by=['aggregate', 'now_cost'], ascending=False)
-    player_list = (len(normalized_players)) if (len(normalized_players) <= 20) else 20
 
-    #Display image
-    cost = 100
-    normalized_players["status"] = 0
+    players_to_analyze = 15
+    if len(normalized_players) <= 15:
+        players_to_analyze = len(normalized_players)
+    normalized_players.to_csv(player_type + ".csv")
+    # normalized_players.loc[0:players_to_analyze, :]
+
+
+
+    normalized_players['efficiency'] = normalized_players['aggregate'] / normalized_players['now_cost']
     normalized_players = normalized_players.sort_values(
-        by='now_cost', ascending=False).reset_index().drop(["index"], axis=1)
-
+        by='efficiency', ascending=False).reset_index().drop(["index"], axis=1)
+    normalized_players['status'] = 0
     if player_type == "Forward":
-        x = best_weight(normalized_players, 'now_cost', 21, 0, 0)
-        cost -= np.sum(x[x['status'] == 1]['now_cost'])
-        print(x[x["status"] == 1])
-    if player_type == "Goalkeeper":
-        x = best_weight(normalized_players, 'now_cost', 9, 0, 0)
-        cost -= np.sum(x[x['status'] == 1]['now_cost'])
-        print(x[x["status"] == 1])
+        selected = cost_analysis(normalized_players, 21, 3)
+        cost -= np.sum(selected['now_cost'])
+
+        # VIZZZ
+        print(selected)
+        print(cost)
+    elif player_type == "Goalkeeper":
+        selected = cost_analysis(normalized_players, 9, 2)
+        cost -= np.sum(selected['now_cost'])
+
+        # VIZZZ
+        print(selected)
+        print(cost)
     elif player_type == "Defender":
-        x = best_weight(normalized_players, 'now_cost', 28, 0, 0)
-        cost -= np.sum(x[x['status'] == 1]['now_cost'])
-        print(x[x["status"] == 1])
+        selected = cost_analysis(normalized_players, 28, 5, player_type)
+        cost -= np.sum(selected['now_cost'])
+
+        # VIZZZ
+        print(selected)
+        print(cost)
     elif player_type == "Midfielder":
-        x = best_weight(normalized_players, 'now_cost', 42, 0, 0)
-        cost -= np.sum(x[x['status'] == 1]['now_cost'])
-        print(x[x["status"] == 1])
+        selected = cost_analysis(normalized_players, 42, 5, player_type)
+        cost -= np.sum(selected['now_cost'])
 
-    print(cost)
-# cost_analysis(normalized_players, , len(normalized_players))
+        # VIZZZ
+        print(selected)
+        print(cost)
 
-    return normalized_players[0:player_list]
+
+def cost_analysis(players, cost, number, player_type=None):
+
+    players_selected = []
+    efficient_player_count = int(number / 2)
+    top_player_count = 1
+    mid_player_count = number - efficient_player_count - top_player_count
+
+    top_player_count = 2
+    if player_type == "Defender":
+        top_player_count = 3
+        efficient_player_count = 2
+        mid_player_count = 0
+    if player_type == "Midfielder":
+        top_player_count = 5
+        mid_player_count = 0
+        efficient_player_count = 0
+
+    for index, row in players.iterrows():
+        if top_player_count == 0:
+            break
+        if row['Fpl_ID'] not in players_selected and cost > row['now_cost']:
+            players_selected.append(row['Fpl_ID'])
+            players.loc[index, ['status']] = 1
+            top_player_count -= 1
+            cost = cost - row['now_cost']
+
+    players = players.sort_values(
+        by='now_cost', ascending=True).reset_index().drop(["index"], axis=1)
+    for index, row in players.iterrows():
+        if mid_player_count == 0:
+            break
+        if row['Fpl_ID'] not in players_selected and cost > row['now_cost']:
+            players_selected.append(row['Fpl_ID'])
+            players.loc[index, ['status']] = 1
+            mid_player_count -= 1
+            cost = cost - row['now_cost']
+
+    players = players.sort_values(by='efficiency', ascending=False).reset_index().drop(["index"], axis=1)
+    for index, row in players.iterrows():
+        if efficient_player_count == 0:
+            break
+        if row['Fpl_ID'] not in players_selected and cost > row['now_cost']:
+            players_selected.append(row['Fpl_ID'])
+            players.loc[index, ['status']] = 1
+            efficient_player_count -= 1
+            cost = cost - row['now_cost']
+
+    players = players.sort_values(by='aggregate', ascending=False).reset_index().drop(["index"], axis=1)
+    print(players_selected)
+    return players[players['status'] == 1]
 
 
 def compute_score(player_z, metrics):
     for item in metrics[1:-3]:
-        player_z['soccer_one_'+item] = (player_z[item] - np.mean(player_z[item]))/np.std(player_z[item])
+        player_z['soccer_one_' + item] = (player_z[item] - np.mean(player_z[item])) / np.std(player_z[item])
     return player_z
 
-
-def best_weight(data, reason, rest, values, index):
-    if rest < np.min(data.loc[range(index, len(data)), reason]) or (index == len(data)):
-        return values
-    else:
-        if rest >= data[reason][index]:
-            data.loc[index, 'status'] = 1
-            rest = rest - data[reason][index]
-            values = values + data["aggregate"][index]
-            index = index + 1
-            values = best_weight(data, reason, rest, values, index)
-            return data
-        else:
-            index = index + 1
-            values = best_weight(data, reason, rest, values, index)
-            return data
 
 make_team()
