@@ -89,49 +89,55 @@ def analyze(players, player_type):
                                       [col for col in normalized_players.columns if 'soccer_one_' in col]].sum(axis=1)
     normalized_players['aggregate'] = normalized_players['aggregate'] / len(metrics)
     normalized_players = normalized_players[normalized_players['aggregate'] > 0]
-    normalized_players = normalized_players.sort_values(by=['aggregate', 'now_cost'], ascending=False)
+    normalized_players['efficiency'] = normalized_players['aggregate'] / normalized_players['now_cost']
+    normalized_players = normalized_players.sort_values(by=['aggregate', 'efficiency', 'now_cost'], ascending=False)
 
-    players_to_analyze = 25
-    if len(normalized_players) <= 25:
+    players_to_analyze = 20
+    if len(normalized_players) <= 20:
         players_to_analyze = len(normalized_players)
 
-    normalized_players['efficiency'] = normalized_players['aggregate'] / normalized_players['now_cost']
+
     normalized_players = normalized_players.sort_values(
-        by='efficiency', ascending=False).reset_index().drop(["index"], axis=1)
+        by='aggregate', ascending=False).reset_index().drop(["index"], axis=1)
     normalized_players['status'] = 0
     normalized_players = normalized_players.head(players_to_analyze)
     return normalized_players
 
 
 def cost_wrapper(players, player_type):
+    cost=100
     if player_type == "Forward":
         selected = cost_analysis(players, 21, 3)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
-        print(selected)
-        print(cost)
+        # print(selected)
+        # print(cost)
+        return selected
     elif player_type == "Goalkeeper":
-        selected = cost_analysis(players, 9, 2)
+        selected = cost_analysis(players, 11, 2)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
-        print(selected)
-        print(cost)
+        # print(selected)
+        # print(cost)
+        return selected
     elif player_type == "Defender":
         selected = cost_analysis(players, 28, 5, player_type)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
-        print(selected)
-        print(cost)
+        # print(selected)
+        # print(cost)
+        return selected
     elif player_type == "Midfielder":
-        selected = cost_analysis(players, 42, 5, player_type)
+        selected = cost_analysis(players, 40, 5, player_type)
         cost -= np.sum(selected['now_cost'])
 
         # VIZZZ
-        print(selected)
-        print(cost)
+        # print(selected)
+        # print(cost)
+        return selected
 
 
 def cost_analysis(players, cost, number, player_type=None):
@@ -180,7 +186,7 @@ def cost_analysis(players, cost, number, player_type=None):
             cost = cost - row['now_cost']
 
     players = players.sort_values(by='aggregate', ascending=False).reset_index().drop(["index"], axis=1)
-    print(players_selected)
+    #print(players_selected)
     return players[players['status'] == 1]
 
 

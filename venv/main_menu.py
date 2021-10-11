@@ -83,11 +83,18 @@ while (True):
                 plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Influence Creativity Threat Index", 'ict_index',0.1)
                 break
             elif (player_pick_selection == "2"):
-                selected_fwd = cost_wrapper(fwds)
-                selected_mid = cost_wrapper(mids)
-                selected_defender = cost_wrapper(defs)
-                selected_goalkeeper = cost_wrapper(goalies)
-                print("Our Recommendation (Top 15)")
+                selected_fwd = cost_wrapper(fwds,"Forward")
+                selected_mid = cost_wrapper(mids,"Midfielder")
+                selected_defender = cost_wrapper(defs,"Defender")
+                selected_goalkeeper = cost_wrapper(goalies,"Goalkeeper")
+
+                final_recommendation = pd.concat([selected_fwd.loc[:,['Name','position','ep_this']],selected_mid.loc[:,['Name','position','ep_this']]])
+                final_recommendation = pd.concat([final_recommendation.loc[:,['Name','position','ep_this']],selected_defender.loc[:,['Name','position','ep_this']]])
+                final_recommendation = pd.concat([final_recommendation.loc[:,['Name','position','ep_this']],selected_goalkeeper.loc[:,['Name','position','ep_this']]])
+                final_recommendation['Team'] = 'Recommended Picks'
+                print("Our Recommendation")
+                print(final_recommendation)
+                plots.expected_points(final_recommendation)
                 break
             elif (player_pick_selection == "3"):
                 break
