@@ -3,6 +3,7 @@ from data_processors.FifaCleaner import cleanFifa
 import os
 import pandas as pd
 import models.plots as plots
+import engine.fixture_difficulty as fd
 
 makeMaster()
 # cleanFifa()
@@ -58,7 +59,8 @@ while(True):
 1. Our Picks
 2. PLayer Stats
 3. Fixtures Complexity
-4. News""")
+4. News
+5. Exit""")
     first_selection = input()
     if (first_selection == "1"):
         while(True):
@@ -124,7 +126,7 @@ while(True):
                 print('Incorrect input')
                 pass
     elif (first_selection == "3"):
-        print("Upcoming Fixtures")
+        fd.fixture_difficulty()
     elif (first_selection == "4"):
         print("League Standings")
     elif (first_selection == "5"):

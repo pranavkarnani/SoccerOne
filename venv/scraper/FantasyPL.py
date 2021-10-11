@@ -51,12 +51,12 @@ def getFantasyPL():
 
     teams_df = pd.DataFrame(teams, columns=team_data_columns)
     teams_df['name'] = np.where(teams_df['name'] == 'Man City', 'Manchester City', teams_df['name'])
-    teams_df['name'] = np.where(teams_df['name'] == 'Man Utd', 'Manchester United', teams_df['name'])
+    teams_df['name'] = np.where(teams_df['name'] == 'Man Utd', 'Manchester Utd', teams_df['name'])
     teams_df['name'] = np.where(teams_df['name'] == 'Leicester', 'Leicester City', teams_df['name'])
     teams_df['name'] = np.where(teams_df['name'] == 'Leeds', 'Leeds United', teams_df['name'])
     teams_df['name'] = np.where(teams_df['name'] == 'Norwich', 'Norwich City', teams_df['name'])
     teams_df['name'] = np.where(teams_df['name'] == 'Spurs', 'Tottenham', teams_df['name'])
-    teams_df['name'] = np.where(teams_df['name'] == 'Newcastle', 'Newcastle United', teams_df['name'])
+    teams_df['name'] = np.where(teams_df['name'] == 'Newcastle', 'Newcastle Utd', teams_df['name'])
     teams_df = teams_df.rename({'name': 'Club'}, axis=1)
     teams_df.to_csv(DATA_PATH+'teams.csv')
 
