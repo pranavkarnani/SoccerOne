@@ -73,20 +73,22 @@ while (True):
             1. Advanced Analytics
             2. Our Recommendation (Top 15)
             3. Back to main menu""")
-            plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Points", 'points_per_game')
-            # plots.scatter_plot_for_player_points(fwds,"Cost","Points","Points per game vs cost for Forwards",'points_per_game')
-            # plots.scatter_plot_for_player_points(mids,"Cost","Points","Points per game vs cost for Midfielders",'points_per_game')
-            # plots.scatter_plot_for_player_points(defs,"Cost","Points","Points per game vs cost for Defender",'points_per_game')
-            # plots.scatter_plot_for_player_points(goalies,"Cost","Points","Points per game vs cost for GoalKeepers",'points_per_game')
+            plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Points per Game", 'points_per_game',.01)
             player_pick_selection = input()
             if (player_pick_selection == "1"):
                 print("Advanced Analytics")
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Form", 'form',0.01)
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Value this season", 'value_season',0.01)
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Total Points", 'total_points',0.1)
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Influence Creativity Threat Index", 'ict_index',0.1)
+                break
             elif (player_pick_selection == "2"):
                 selected_fwd = cost_wrapper(fwds)
                 selected_mid = cost_wrapper(mids)
                 selected_defender = cost_wrapper(defs)
                 selected_goalkeeper = cost_wrapper(goalies)
                 print("Our Recommendation (Top 15)")
+                break
             elif (player_pick_selection == "3"):
                 break
             else:

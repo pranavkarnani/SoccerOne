@@ -56,7 +56,7 @@ def radar_charts_player_stats(*argv):
 # radar_charts_player_stats(231677)
 
 # Scatter PLot from season player stats
-def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y):
+def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y,marker_size_ref):
     if graphs == 4:
         title = ""
         title = y.replace("_", " ")
@@ -73,7 +73,7 @@ def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y):
         fig.update_traces(
             mode='markers',
             marker={'sizemode': 'area',
-                    'sizeref': 0.01})
+                    'sizeref': marker_size_ref})
         for i in range(1, 3):
             for j in range(1, 3):
                 fig.update_xaxes(title_text=xaxis, row=i, col=j)
@@ -100,7 +100,7 @@ def get_fig_scatter(df, y):
         hovertemplate=
         "<b>%{hovertext}</b><br><br>" +
         "Expected points: %{text:,}<br>" +
-        "Points per game: %{y:,}<br>" +
+         y.replace('_',' ').capitalize()+" : %{y:,}<br>" +
         "Cost: %{x:,}" +
         "<extra></extra>",
         marker_size=df[y + '_int'],

@@ -66,7 +66,7 @@ def analyze(players, player_type):
 
     elif player_type == "Goalkeeper":
         metrics = ['id', 'ep_this', 'points_per_game', 'selected_by_percent', 'chance_of_playing_this_round',
-                   'total_points',
+                   'total_points','ict_index',
                    'clean_sheets', 'saves', 'form', 'value_season', 'news', 'news_added', 'now_cost']
         player_attr = fpl.loc[:, metrics]
 
