@@ -97,11 +97,11 @@ def fixture_difficulty():
 
     # Bucketing 'Win_Percent' as 'Win Rating'
     def getBucket(winPercent):
-        if winPercent>80:
+        if winPercent>=90:
             return 0
-        if winPercent>60:
+        if winPercent>=60:
             return 1
-        if winPercent>50:
+        if winPercent>=50:
             return 2
 
     # Adding the bucket values to the 'Win Rating' for the 'Pred_Winning_Team'
@@ -170,14 +170,17 @@ def fixture_difficulty():
 
 
     # Plotting the heatmap
-    sns.set(rc = {'figure.figsize':(20,10)})
-    sns.set(font_scale = 1.3)
+    sns.set(rc = {'figure.figsize':(40,10)})
+    sns.set(font_scale = 0.8)
     plot = sns.heatmap(heatmap_df.astype(float), annot=labels_Array,cmap ='RdYlGn_r', fmt = '', vmin=0, vmax=5,
                        linewidths=0.5,linecolor='white', cbar_kws={'label': 'Fixture Difficulty Rating'})
-    plot.set_xlabel('Gameday', fontsize = 20)
-    plot.set_ylabel('Team', fontsize = 20)
-    plot.set_title('Fixture Difficulty', fontsize = 20)
+    plot.set_xlabel('Gameday', fontsize = 15)
+    plot.set_ylabel('Team', fontsize = 15)
+    plot.set_xticklabels(plot.get_xticklabels(), size = 10)
+    plot.set_yticklabels(plot.get_yticklabels(), size=10)
+    plot.set_title('Fixture Difficulty', fontsize = 18)
     bottom, top = plot.get_ylim()
-    plot.set_ylim(bottom + 0.5, top - 0.5)
     plt.savefig(DATA_PATH+'Teams_Fixture_Difficulty.pdf')
     plt.show()
+
+fixture_difficulty()
