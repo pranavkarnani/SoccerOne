@@ -59,52 +59,45 @@ def player_overall_stats(id):
 
 while (True):
     print("""
-1. Our Recommended Picks
-2. PLayer Stats
-3. Fixtures Complexity
+   Analytics
+1. Position 
+2. Player 
+3. Fixtures 
 4. News
 5. Exit""")
     first_selection = input()
     if (first_selection == "1"):
         fwds, mids, defs, goalies = make_team()
-        selected_fwd = cost_wrapper(fwds)
-        selected_mid = cost_wrapper(mids)
-        selected_defender = cost_wrapper(defs)
-        selected_goalkeeper = cost_wrapper(goalies)
         while (True):
-            print("""Here are our Picks.
-            #Populate from a function and then display here
-            1. 
-            2.
-            3.
-            4.
-            5.
-            6.
-            7.
-            8.
-            9.
-            10.
-            11.
-            12.
-            
-            1.1 Why we choose the team
-            1.2 Player performance Analysis
-            1.3 Player Alternatives
-            1.4 Why this formation
-            1.5 Why not certain players
-            1.6 Back to main menu""")
+            print("""Here are the top players for each position
+                       
+            1. Advanced Analytics
+            2. Our Recommendation (Top 15)
+            3. Back to main menu""")
+            plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Points per Game", 'points_per_game',.01)
             player_pick_selection = input()
             if (player_pick_selection == "1"):
-                print("Reasons for choosing the team")
+                print("Advanced Analytics")
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Form", 'form',0.01)
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Value this season", 'value_season',0.01)
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Total Points", 'total_points',0.1)
+                plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Influence Creativity Threat Index", 'ict_index',0.1)
+                break
             elif (player_pick_selection == "2"):
-                print("Player Performance")
+                selected_fwd = cost_wrapper(fwds,"Forward")
+                selected_mid = cost_wrapper(mids,"Midfielder")
+                selected_defender = cost_wrapper(defs,"Defender")
+                selected_goalkeeper = cost_wrapper(goalies,"Goalkeeper")
+
+                final_recommendation = pd.concat([selected_fwd.loc[:,['Name','position','ep_this']],selected_mid.loc[:,['Name','position','ep_this']]])
+                final_recommendation = pd.concat([final_recommendation.loc[:,['Name','position','ep_this']],selected_defender.loc[:,['Name','position','ep_this']]])
+                final_recommendation = pd.concat([final_recommendation.loc[:,['Name','position','ep_this']],selected_goalkeeper.loc[:,['Name','position','ep_this']]])
+                final_recommendation['Team'] = 'Recommended Picks'
+                print("Our Recommendation")
+                print(final_recommendation)
+                plots.expected_points(final_recommendation)
+                break
             elif (player_pick_selection == "3"):
-                print("Player Alternatives")
-            elif (player_pick_selection == "4"):
-                print("Formation reasoning")
-            elif (player_pick_selection == "5"):
-                print("Why we didn't choose...")
-            elif (player_pick_selection == "6"):
                 break
             else:
                 print('Incorrect input')
