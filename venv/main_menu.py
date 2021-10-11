@@ -73,10 +73,11 @@ while (True):
             1. Advanced Analytics
             2. Our Recommendation (Top 15)
             3. Back to main menu""")
-            plots.scatter_plot_for_player_points(fwds,"Cost","Points","Points per game vs cost for Forwards",'points_per_game')
-            plots.scatter_plot_for_player_points(mids,"Cost","Points","Points per game vs cost for Midfielders",'points_per_game')
-            plots.scatter_plot_for_player_points(defs,"Cost","Points","Points per game vs cost for Defender",'points_per_game')
-            plots.scatter_plot_for_player_points(goalies,"Cost","Points","Points per game vs cost for GoalKeepers",'points_per_game')
+            plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Points", 'points_per_game')
+            # plots.scatter_plot_for_player_points(fwds,"Cost","Points","Points per game vs cost for Forwards",'points_per_game')
+            # plots.scatter_plot_for_player_points(mids,"Cost","Points","Points per game vs cost for Midfielders",'points_per_game')
+            # plots.scatter_plot_for_player_points(defs,"Cost","Points","Points per game vs cost for Defender",'points_per_game')
+            # plots.scatter_plot_for_player_points(goalies,"Cost","Points","Points per game vs cost for GoalKeepers",'points_per_game')
             player_pick_selection = input()
             if (player_pick_selection == "1"):
                 print("Advanced Analytics")
