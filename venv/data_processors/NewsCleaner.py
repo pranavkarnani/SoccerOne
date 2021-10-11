@@ -29,9 +29,5 @@ def clean_news():
                     featured[name] += 1
                 else:
                     featured[name] = 1
-
-    return featured
-
-    # news_df.to_csv(DATA_PATH+'news.csv')
-
-clean_news()
+    featured_df = pd.DataFrame(featured.items(), columns=['Player', 'Times'])
+    featured_df.to_csv(DATA_PATH+'featured.csv')
