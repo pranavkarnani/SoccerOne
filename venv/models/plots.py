@@ -1,7 +1,7 @@
 import matplotlib as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
-import PlayerOverall as po
+import models.PlayerOverall as po
 import plotly.express as px
 import os
 import pandas as pd

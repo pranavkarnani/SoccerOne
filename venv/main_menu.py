@@ -1,14 +1,16 @@
 from data_processors.SoccerOneMaster import makeMaster
 from data_processors.FifaCleaner import cleanFifa
+from engine.TeamDrafter import make_team, cost_wrapper
 import os
 import pandas as pd
 import models.plots as plots
 import engine.fixture_difficulty as fd
 
 makeMaster()
-# cleanFifa()
+
 FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
 DATA_PATH = FILE_PATH + '/data/'
+
 
 def player_overall_stats(id):
     soccer_master = pd.read_csv(DATA_PATH + "soccerOneMaster.csv")
@@ -18,9 +20,9 @@ def player_overall_stats(id):
         how="left",
         left_on='Fifa_ID',
         right_on='ID')
-    if(id==1):
+    if (id == 1):
         soccer_master_temp = soccer_master.loc[soccer_master['position'] == 'Forward']
-    elif(id==2):
+    elif (id == 2):
         soccer_master_temp = soccer_master.loc[soccer_master['position'] == 'Midfielder']
     elif (id == 3):
         soccer_master_temp = soccer_master.loc[soccer_master['position'] == 'Defender']
@@ -38,32 +40,38 @@ def player_overall_stats(id):
         if (player_stat >= 0 and player_stat <= 30):
             plots.radar_charts_player_stats(soccer_master_temp.loc[player_stat]['Fifa_ID'])
             print("Compare against another player(Y/N)?")
-            player_stats_input =  input()
-            if(player_stats_input == 'Y'):
+            player_stats_input = input()
+            if (player_stats_input == 'Y'):
                 print(soccer_master_temp.loc[:30, ['Name', 'position', 'Club', 'Fifa_ID', 'Overal']])
                 player_stat_2 = input()
                 player_stat_2 = int(player_stat_2)
-                if(player_stat >= 0 and player_stat <= 30):
+                if (player_stat >= 0 and player_stat <= 30):
                     if (player_stat >= 0 and player_stat <= 30):
                         plots.radar_charts_player_stats(soccer_master_temp.loc[player_stat]['Fifa_ID'],
                                                         soccer_master_temp.loc[player_stat_2]['Fifa_ID'])
                         break
-            elif(player_stats_input == 'N'):
+            elif (player_stats_input == 'N'):
                 break
 
         elif (player_stat == 2):
             break
 
-while(True):
+
+while (True):
     print("""
-1. Our Picks
+1. Our Recommended Picks
 2. PLayer Stats
 3. Fixtures Complexity
 4. News
 5. Exit""")
     first_selection = input()
     if (first_selection == "1"):
-        while(True):
+        fwds, mids, defs, goalies = make_team()
+        selected_fwd = cost_wrapper(fwds)
+        selected_mid = cost_wrapper(mids)
+        selected_defender = cost_wrapper(defs)
+        selected_goalkeeper = cost_wrapper(goalies)
+        while (True):
             print("""Here are our Picks.
             #Populate from a function and then display here
             1. 
@@ -86,9 +94,9 @@ while(True):
             1.5 Why not certain players
             1.6 Back to main menu""")
             player_pick_selection = input()
-            if(player_pick_selection=="1"):
+            if (player_pick_selection == "1"):
                 print("Reasons for choosing the team")
-            elif(player_pick_selection=="2"):
+            elif (player_pick_selection == "2"):
                 print("Player Performance")
             elif (player_pick_selection == "3"):
                 print("Player Alternatives")
@@ -102,7 +110,7 @@ while(True):
                 print('Incorrect input')
                 pass
     elif (first_selection == "2"):
-        while(True):
+        while (True):
             print("""
             2.1 Which position?
                 1. Forward
@@ -110,7 +118,7 @@ while(True):
                 3. Defense
                 4. Goalkeeper
                 5. Back to main menu"""
-            )
+                  )
             player_stat_position = input()
             if (player_stat_position == "1"):
                 player_overall_stats(1)
@@ -134,5 +142,3 @@ while(True):
     else:
         print('Incorrect input')
         pass
-
-

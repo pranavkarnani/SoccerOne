@@ -36,7 +36,7 @@ def make_team():
     mids = analyze(soccerOne[soccerOne['position'] == 'Midfielder'], 'Midfielder')
     defs = analyze(soccerOne[soccerOne['position'] == 'Defender'], 'Defender')
     goalies = analyze(soccerOne[soccerOne['position'] == 'Goalkeeper'], 'Goalkeeper')
-    return(fwds, mids, defs, goalies)
+    return fwds, mids, defs, goalies
     # VIZZZZ
 
 
@@ -189,6 +189,3 @@ def compute_score(player_z, metrics):
     for item in metrics[1:-3]:
         player_z['soccer_one_' + item] = (player_z[item] - np.mean(player_z[item])) / np.std(player_z[item])
     return player_z
-
-
-make_team()
