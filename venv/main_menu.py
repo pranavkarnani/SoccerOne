@@ -59,9 +59,10 @@ def player_overall_stats(id):
 
 while (True):
     print("""
-1. Our Recommended Picks
-2. PLayer Stats
-3. Fixtures Complexity
+   Analytics
+1. Position 
+2. Player 
+3. Fixtures 
 4. News
 5. Exit""")
     first_selection = input()

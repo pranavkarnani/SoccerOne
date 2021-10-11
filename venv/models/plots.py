@@ -52,9 +52,6 @@ def radar_charts_player_stats(*argv):
         pyo.plot(fig)
 
 
-# Testing radar charts
-# radar_charts_player_stats(231677)
-
 # Scatter PLot from season player stats
 def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y,marker_size_ref):
     if graphs == 4:
@@ -63,7 +60,7 @@ def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y,mark
         title = title.capitalize() + " vs Cost"
         fig = make_subplots(rows=int(graphs / 2), cols=2, specs=[[{"type":"scatter"}, {"type":"scatter"}],
                                                                  [{"type":"scatter"}, {"type":"scatter"}]],
-                            subplot_titles=("Forwards", "Midfields", "Defenders", "Goalkeepers"))
+                            subplot_titles=("Forwards", "Midfielders", "Defenders", "Goalkeepers"))
 
         fig.add_trace(get_fig_scatter(fwds, y), row=1, col=1)
         fig.add_trace(get_fig_scatter(mids, y), row=1, col=2)
@@ -79,7 +76,7 @@ def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y,mark
                 fig.update_xaxes(title_text=xaxis, row=i, col=j)
                 fig.update_yaxes(title_text=yaxis, row=i, col=j)
 
-        fig.update_layout(title_text=title + " Forwards / Midfields / Defenders / Goalkeepers")
+        fig.update_layout(title_text=title + " By Position")
 
 
         fig.show()
@@ -107,11 +104,6 @@ def get_fig_scatter(df, y):
     )
     return trace
 
-
-def get_fig_trace():
-    print('getting trace')
-
-
 # Send over a df and then we build the chart from the points column
 # X will be points column and y will just be a column wiht one value
 # color will be based on player name
@@ -119,5 +111,6 @@ def expected_points(df):
     fig = px.bar(df, x="ep_this", y="Team", color='Name', orientation='h',
                  height=400,
                  title='Expected Points from the team')
+
     fig.show()
 
