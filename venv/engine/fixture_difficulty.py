@@ -183,4 +183,3 @@ def fixture_difficulty():
     plt.savefig(DATA_PATH+'Teams_Fixture_Difficulty.pdf')
     plt.show()
 
-fixture_difficulty()

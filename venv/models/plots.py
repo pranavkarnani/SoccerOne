@@ -1,7 +1,7 @@
 import matplotlib as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
-import models.PlayerOverall as po
+import PlayerOverall as po
 import plotly.express as px
 import os
 import pandas as pd
@@ -63,22 +63,24 @@ def scatter_plot_for_player_points(*argv):
                      size="now_cost", hover_data=['fullname']) #what should the size be dependent on
     fig.show()
 
+
 #Testing scatter plot
-# scatter_plot_for_player_points(plot_type = )
 
-# def scatter_plot_for_position():
+#def scatter_plot_for_player_points(plot_type = )
 
 
+
+# Send over a df and then we build the chart from the points column
+# X will be points column and y will just be a column wiht one value
+# color will be based on player name
 def expected_points():
-    animals=['giraffes', 'orangutans', 'monkeys'] #Get the player name in the team
-
-    fig = go.Figure(data=[
-        go.Bar(name='SF Zoo', x=animals, y=[20, 14, 23]),
-        go.Bar(name='LA Zoo', x=animals, y=[12, 18, 29])
-    ])
-    # Change the bar mode
-    fig.update_layout(barmode='stack')
+    df = px.data.tips()
+    df['team'] = 'Team1'
+    fig = px.bar(df, x="total_bill", y="team", color='day', orientation='h',
+                 height=400,
+                 title='Expected Points from the team')
     fig.show()
+expected_points()
 
 
 
