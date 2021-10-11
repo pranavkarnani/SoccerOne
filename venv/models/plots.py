@@ -1,7 +1,7 @@
 import matplotlib as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
-import PlayerOverall as po
+import models.PlayerOverall as po
 import plotly.express as px
 import os
 import pandas as pd
@@ -15,7 +15,7 @@ def radar_charts_player_stats(*argv):
         print(player_df)
         player = player_df.iloc[0,1:8]
         player = [*player, player[0]]
-        print(player)
+        #print(player)
         fig = go.Figure(
             data=[
                 go.Scatterpolar(r=player, theta=categories, fill='toself', name=player_df.Name.to_string()),
@@ -51,7 +51,7 @@ def radar_charts_player_stats(*argv):
 
 
 # Testing radar charts
-radar_charts_player_stats(231677,189509)
+#radar_charts_player_stats(231677)
 
 # Scatter PLot from season player stats
 def scatter_plot_for_player_points(*argv):
@@ -64,9 +64,9 @@ def scatter_plot_for_player_points(*argv):
     fig.show()
 
 #Testing scatter plot
-scatter_plot_for_player_points(plot_type = )
+# scatter_plot_for_player_points(plot_type = )
 
-def scatter_plot_for_position():
+# def scatter_plot_for_position():
 
 
 def expected_points():

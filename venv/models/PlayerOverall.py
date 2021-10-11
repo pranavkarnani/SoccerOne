@@ -114,14 +114,12 @@ def Player_Overall_cleaner():
     new_workbook['Specialities'] = workbook['Specialities']
     new_workbook['ID'] = workbook['ID']
     new_workbook['Name'] = workbook['Name']
+    new_workbook['Overal'] = workbook['Overal']
 
     print(new_workbook.info())
 
     new_workbook.to_csv(DATA_PATH+'player_overall.csv')
 
 def overall_id(id):
-    os.chdir('../data/')
-    new_workbook = pd.read_csv('player_overall.csv')
+    new_workbook = pd.read_csv(DATA_PATH+'player_overall.csv')
     return new_workbook.loc[new_workbook['ID'] == id]
-
-Player_Overall_cleaner()
