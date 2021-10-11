@@ -1,131 +1,131 @@
 ,Name,position,Club,Fifa_ID,Fpl_ID
-0,Hugo Lloris,Goalkeeper,Tottenham,167948,353
-1,Raheem Sterling,Midfielder,Manchester City,202652,255
-2,Trent Alexander-Arnold,Defender,Liverpool,231281,237
-3,Andrew Robertson,Defender,Liverpool,216267,234
-4,Rúben Dias,Defender,Manchester City,239818,262
-5,Romelu Lukaku,Forward,Chelsea,192505,529
-6,Harry Kane,Forward,Tottenham,202126,357
-7,Kyle Walker,Defender,Manchester City,188377,249
-8,Sadio Mané,Midfielder,Liverpool,208722,230
-9,Pierre-Emerick Aubameyang,Forward,Arsenal,188567,4
-10,Roberto Firmino,Forward,Liverpool,201942,228
-11,Wilfred Ndidi,Midfielder,Leicester City,226790,216
-12,Riyad Mahrez,Midfielder,Manchester City,204485,254
-13,Jamie Vardy,Forward,Leicester City,208830,205
-14,João Cancelo,Defender,Manchester City,210514,256
-15,Aymeric Laporte,Defender,Manchester City,212218,259
-16,Joel Matip,Defender,Liverpool,197061,224
-17,Raúl Jiménez,Forward,Wolves,204838,430
+0,Roberto Firmino,Forward,Liverpool,201942,228
+1,Pierre-Emerick Aubameyang,Forward,Arsenal,188567,4
+2,Kyle Walker,Defender,Manchester City,188377,249
+3,Wilfred Ndidi,Midfielder,Leicester City,226790,216
+4,João Cancelo,Defender,Manchester City,210514,256
+5,Hugo Lloris,Goalkeeper,Tottenham,167948,353
+6,Aymeric Laporte,Defender,Manchester City,212218,259
+7,Riyad Mahrez,Midfielder,Manchester City,204485,254
+8,Jamie Vardy,Forward,Leicester City,208830,205
+9,Andrew Robertson,Defender,Liverpool,216267,234
+10,Trent Alexander-Arnold,Defender,Liverpool,231281,237
+11,Rúben Dias,Defender,Manchester City,239818,262
+12,Romelu Lukaku,Forward,Chelsea,192505,529
+13,Raheem Sterling,Midfielder,Manchester City,202652,255
+14,Sadio Mané,Midfielder,Liverpool,208722,230
+15,Harry Kane,Forward,Tottenham,202126,357
+16,Bernd Leno,Goalkeeper,Arsenal,192563,1
+17,Joel Matip,Defender,Liverpool,197061,224
 18,John Stones,Defender,Manchester City,203574,252
 19,Nick Pope,Goalkeeper,Burnley,203841,112
-20,Jordan Pickford,Goalkeeper,Everton,204935,170
-21,Bernd Leno,Goalkeeper,Arsenal,192563,1
-22,Gabriel Jesus,Forward,Manchester City,230666,263
-23,Pierre-Emile Højbjerg,Midfielder,Tottenham,213648,365
-24,Antonio Rüdiger,Defender,Chelsea,205452,127
-25,Thomas Partey,Midfielder,Arsenal,209989,15
-26,Mason Mount,Midfielder,Chelsea,233064,138
-27,Hakim Ziyech,Midfielder,Chelsea,208670,131
-28,Jack Grealish,Midfielder,Manchester City,206517,33
+20,Raúl Jiménez,Forward,Wolves,204838,430
+21,Jordan Pickford,Goalkeeper,Everton,204935,170
+22,Antonio Rüdiger,Defender,Chelsea,205452,127
+23,Thomas Partey,Midfielder,Arsenal,209989,15
+24,Pierre-Emile Højbjerg,Midfielder,Tottenham,213648,365
+25,Mason Mount,Midfielder,Chelsea,233064,138
+26,Gabriel Jesus,Forward,Manchester City,230666,263
+27,Jordan Henderson,Midfielder,Liverpool,183711,222
+28,Ricardo Pereira,Defender,Leicester City,210243,207
 29,Lucas Digne,Defender,Everton,200458,168
-30,Emiliano Martínez,Goalkeeper,Aston Villa,202811,30
-31,Jordan Henderson,Midfielder,Liverpool,183711,222
-32,Kai Havertz,Midfielder,Chelsea,235790,141
-33,Phil Foden,Midfielder,Manchester City,237692,265
-34,Kasper Schmeichel,Goalkeeper,Leicester City,163587,200
-35,Thiago Silva,Defender,Chelsea,164240,121
-36,Ricardo Pereira,Defender,Leicester City,210243,207
-37,Timo Werner,Forward,Chelsea,212188,134
-38,Harvey Barnes,Midfielder,Leicester City,234742,215
-39,Kalvin Phillips,Midfielder,Leeds United,224081,191
-40,Nicolas Pépé,Midfielder,Arsenal,226110,17
-41,Reece James,Defender,Chelsea,238074,142
-42,Alphonse Areola,Goalkeeper,West Ham,193105,489
-43,Alexandre Lacazette,Forward,Arsenal,193301,6
-44,Rúben Neves,Midfielder,Wolves,224293,436
-45,Martin Ødegaard,Midfielder,Arsenal,222665,558
-46,Diogo Jota,Midfielder,Liverpool,224458,240
-47,Pierluigi Gollini,Goalkeeper,Tottenham,211515,486
-48,James Maddison,Midfielder,Leicester City,220697,212
+30,Timo Werner,Forward,Chelsea,212188,134
+31,Emiliano Martínez,Goalkeeper,Aston Villa,202811,30
+32,Jack Grealish,Midfielder,Manchester City,206517,33
+33,Hakim Ziyech,Midfielder,Chelsea,208670,131
+34,Kai Havertz,Midfielder,Chelsea,235790,141
+35,Phil Foden,Midfielder,Manchester City,237692,265
+36,Kasper Schmeichel,Goalkeeper,Leicester City,163587,200
+37,Thiago Silva,Defender,Chelsea,164240,121
+38,Alexandre Lacazette,Forward,Arsenal,193301,6
+39,Reece James,Defender,Chelsea,238074,142
+40,Rúben Neves,Midfielder,Wolves,224293,436
+41,Pierluigi Gollini,Goalkeeper,Tottenham,211515,486
+42,James Maddison,Midfielder,Leicester City,220697,212
+43,Martin Ødegaard,Midfielder,Arsenal,222665,558
+44,Diogo Jota,Midfielder,Liverpool,224458,240
+45,Kalvin Phillips,Midfielder,Leeds United,224081,191
+46,Nicolas Pépé,Midfielder,Arsenal,226110,17
+47,Harvey Barnes,Midfielder,Leicester City,234742,215
+48,Leon Bailey,Midfielder,Aston Villa,229906,492
 49,Christian Pulisic,Midfielder,Chelsea,227796,137
-50,Leon Bailey,Midfielder,Aston Villa,229906,492
+50,Alphonse Areola,Goalkeeper,West Ham,193105,489
 51,Cristian Romero,Defender,Tottenham,232488,494
 52,Tanguy Ndombele,Midfielder,Tottenham,235569,375
 53,Ferran Torres,Midfielder,Manchester City,241461,268
 54,Dominic Calvert-Lewin,Forward,Everton,221479,177
-55,Jonny Evans,Defender,Leicester City,169588,201
-56,Angelo Ogbonna,Defender,West Ham,183855,409
-57,Michael Keane,Defender,Everton,207599,169
-58,Andreas Christensen,Defender,Chelsea,213661,133
+55,Michael Keane,Defender,Everton,207599,169
+56,Andreas Christensen,Defender,Chelsea,213661,133
+57,Jonny Evans,Defender,Leicester City,169588,201
+58,Angelo Ogbonna,Defender,West Ham,183855,409
 59,Steven Bergwijn,Midfielder,Tottenham,225953,369
 60,Kieran Tierney,Defender,Arsenal,226491,16
 61,Nélson Semedo,Defender,Wolves,227928,437
-62,Bukayo Saka,Midfielder,Arsenal,246669,22
-63,Danny Ings,Forward,Aston Villa,195859,337
-64,James Rodríguez,Midfielder,Everton,198710,166
+62,Danny Ings,Forward,Aston Villa,195859,337
+63,James Rodríguez,Midfielder,Everton,198710,166
+64,Bukayo Saka,Midfielder,Arsenal,246669,22
 65,James Tarkowski,Defender,Burnley,202695,98
 66,Kurt Zouma,Defender,West Ham,204311,128
 67,James Ward-Prowse,Midfielder,Southampton,205569,341
-68,Chris Wood,Forward,Burnley,192123,109
-69,João Moutinho,Midfielder,Wolves,162347,426
-70,Aaron Cresswell,Defender,West Ham,189615,411
-71,Ben Mee,Defender,Burnley,189682,106
-72,Michail Antonio,Forward,West Ham,190717,413
-73,Alex Oxlade-Chamberlain,Midfielder,Liverpool,198784,227
-74,Marcos Alonso,Defender,Chelsea,192638,122
+68,João Moutinho,Midfielder,Wolves,162347,426
+69,Marcos Alonso,Defender,Chelsea,192638,122
+70,Chris Wood,Forward,Burnley,192123,109
+71,Aaron Cresswell,Defender,West Ham,189615,411
+72,Ben Mee,Defender,Burnley,189682,106
+73,Michail Antonio,Forward,West Ham,190717,413
+74,Alex Oxlade-Chamberlain,Midfielder,Liverpool,198784,227
 75,Granit Xhaka,Midfielder,Arsenal,199503,7
-76,Conor Coady,Defender,Wolves,202048,429
-77,Eric Dier,Defender,Tottenham,202335,361
-78,Willy Boly,Defender,Wolves,202750,428
-79,Ben Davies,Defender,Tottenham,205923,364
+76,Ben Davies,Defender,Tottenham,205923,364
+77,Conor Coady,Defender,Wolves,202048,429
+78,Eric Dier,Defender,Tottenham,202335,361
+79,Willy Boly,Defender,Wolves,202750,428
 80,Abdoulaye Doucouré,Midfielder,Everton,208135,173
 81,José Sá,Goalkeeper,Wolves,212442,475
 82,Davinson Sánchez,Defender,Tottenham,220793,367
-83,Pablo Fornals,Midfielder,West Ham,226456,423
-84,Timothy Castagne,Defender,Leicester City,222501,209
+83,Timothy Castagne,Defender,Leicester City,222501,209
+84,Pablo Fornals,Midfielder,West Ham,226456,423
 85,James Milner,Midfielder,Liverpool,138412,221
-86,Ross Barkley,Midfielder,Chelsea,199189,124
-87,Moussa Sissoko,Midfielder,Watford,183394,354
-88,Cheikhou Kouyaté,Defender,Crystal Palace,186801,150
-89,Ashley Westwood,Midfielder,Burnley,189280,107
+86,Moussa Sissoko,Midfielder,Watford,183394,354
+87,Cheikhou Kouyaté,Defender,Crystal Palace,186801,150
+88,Ashley Westwood,Midfielder,Burnley,189280,107
+89,Ross Barkley,Midfielder,Chelsea,199189,124
 90,Lewis Dunk,Defender,Brighton,199915,59
-91,Matt Doherty,Defender,Tottenham,201417,360
-92,Jannik Vestergaard,Defender,Leicester City,202849,340
-93,Patrick Bamford,Forward,Leeds United,206534,189
-94,Romain Saïss,Defender,Wolves,208295,431
-95,Nathan Aké,Defender,Manchester City,208920,258
-96,Tyrone Mings,Defender,Aston Villa,212419,38
-97,Adama Traoré,Midfielder,Wolves,213956,435
+91,Romain Saïss,Defender,Wolves,208295,431
+92,John McGinn,Midfielder,Aston Villa,210881,35
+93,Tyrone Mings,Defender,Aston Villa,212419,38
+94,Jannik Vestergaard,Defender,Leicester City,202849,340
+95,Patrick Bamford,Forward,Leeds United,206534,189
+96,Nathan Aké,Defender,Manchester City,208920,258
+97,Ollie Watkins,Forward,Aston Villa,221697,40
 98,Ayoze Pérez,Midfielder,Leicester City,215590,211
-99,Ollie Watkins,Forward,Aston Villa,221697,40
+99,Matt Doherty,Defender,Tottenham,201417,360
 100,Jarrod Bowen,Midfielder,West Ham,224371,420
-101,Kelechi Iheanacho,Forward,Leicester City,225719,213
-102,John McGinn,Midfielder,Aston Villa,210881,35
+101,Adama Traoré,Midfielder,Wolves,213956,435
+102,Kelechi Iheanacho,Forward,Leicester City,225719,213
 103,Daniel Podence,Midfielder,Wolves,226766,438
 104,Jack Harrison,Midfielder,Leeds United,232080,267
 105,Ibrahima Konaté,Defender,Liverpool,237678,243
 106,Pedro Neto,Midfielder,Wolves,238616,441
 107,Wesley Fofana,Defender,Leicester City,248695,220
 108,Ben Foster,Goalkeeper,Watford,163155,376
-109,Saïd Benrahma,Midfielder,West Ham,220621,419
-110,Diego Llorente,Defender,Leeds United,212602,190
-111,Mohamed Elneny,Midfielder,Arsenal,213051,12
-112,Alex Iwobi,Midfielder,Everton,213655,174
-113,Jean-Philippe Gbamin,Midfielder,Everton,214947,504
-114,Matt Targett,Defender,Aston Villa,218659,39
-115,Rob Holding,Defender,Arsenal,228295,14
-116,Milot Rashica,Midfielder,Norwich City,229167,449
-117,Ademola Lookman,Midfielder,Leicester City,230899,587
-118,Joachim Andersen,Defender,Crystal Palace,224221,488
-119,Mason Holgate,Defender,Everton,225024,178
-120,Ben Godfrey,Defender,Everton,225793,179
+109,Mohamed Elneny,Midfielder,Arsenal,213051,12
+110,Alex Iwobi,Midfielder,Everton,213655,174
+111,Matt Targett,Defender,Aston Villa,218659,39
+112,Jean-Philippe Gbamin,Midfielder,Everton,214947,504
+113,Harry Winks,Midfielder,Tottenham,222400,366
+114,Diego Llorente,Defender,Leeds United,212602,190
+115,Saïd Benrahma,Midfielder,West Ham,220621,419
+116,Rob Holding,Defender,Arsenal,228295,14
+117,Joachim Andersen,Defender,Crystal Palace,224221,488
+118,Ademola Lookman,Midfielder,Leicester City,230899,587
+119,Ben Godfrey,Defender,Everton,225793,179
+120,Milot Rashica,Midfielder,Norwich City,229167,449
 121,Kyle Walker-Peters,Defender,Southampton,227927,342
-122,Romain Perraud,Defender,Southampton,231318,460
-123,James Justin,Defender,Leicester City,231554,218
-124,Harry Winks,Midfielder,Tottenham,222400,366
-125,Issa Diop,Defender,West Ham,231633,424
-126,Daniel James,Midfielder,Leeds United,232104,287
+122,Daniel James,Midfielder,Leeds United,232104,287
+123,Romain Perraud,Defender,Southampton,231318,460
+124,James Justin,Defender,Leicester City,231554,218
+125,Mason Holgate,Defender,Everton,225024,178
+126,Issa Diop,Defender,West Ham,231633,424
 127,Eberechi Eze,Midfielder,Crystal Palace,235794,160
 128,Robin Koch,Defender,Leeds United,236532,194
 129,Callum Hudson-Odoi,Midfielder,Chelsea,240740,140
@@ -148,150 +148,150 @@
 146,Craig Dawson,Defender,West Ham,194806,414
 147,Andros Townsend,Midfielder,Everton,194932,482
 148,Stuart Armstrong,Midfielder,Southampton,202282,339
-149,Bertrand Traoré,Midfielder,Aston Villa,207948,32
-150,Leandro Trossard,Midfielder,Brighton,207421,64
+149,Leandro Trossard,Midfielder,Brighton,207421,64
+150,Bertrand Traoré,Midfielder,Aston Villa,207948,32
 151,Joël Veltman,Defender,Brighton,208004,62
 152,André Gomes,Midfielder,Everton,211575,172
 153,Neal Maupay,Forward,Brighton,211784,63
 154,Arthur Masuaku,Defender,West Ham,212491,417
 155,Jan Bednarek,Defender,Southampton,220570,343
-156,Brandon Williams,Defender,Norwich City,243414,290
-157,Theo Walcott,Midfielder,Southampton,164859,332
-158,Ryan Bertrand,Defender,Leicester City,169705,473
-159,Enock Mwepu,Midfielder,Brighton,243231,462
-160,Luke Ayling,Defender,Leeds United,186156,185
-161,Teemu Pukki,Forward,Norwich City,190362,315
-162,Jack Cork,Midfielder,Burnley,169706,101
+156,Enock Mwepu,Midfielder,Brighton,243231,462
+157,Brandon Williams,Defender,Norwich City,243414,290
+158,Theo Walcott,Midfielder,Southampton,164859,332
+159,Ryan Bertrand,Defender,Leicester City,169705,473
+160,Jack Cork,Midfielder,Burnley,169706,101
+161,Marc Albrighton,Midfielder,Leicester City,183130,202
+162,Teemu Pukki,Forward,Norwich City,190362,315
 163,Pascal Groß,Midfielder,Brighton,190765,55
-164,Marc Albrighton,Midfielder,Leicester City,183130,202
-165,Nathan Redmond,Midfielder,Southampton,198719,336
+164,Nathan Redmond,Midfielder,Southampton,198719,336
+165,Luke Ayling,Defender,Leeds United,186156,185
 166,Matthew Lowton,Defender,Burnley,199633,110
 167,Ryan Fredericks,Defender,West Ham,205346,415
 168,Charlie Taylor,Defender,Burnley,204760,113
 169,Will Hughes,Midfielder,Crystal Palace,206516,386
-170,Morgan Sanson,Midfielder,Aston Villa,210896,34
-171,Daniel Amartey,Defender,Leicester City,212883,208
+170,Pablo Marí,Defender,Arsenal,206654,8
+171,Morgan Sanson,Midfielder,Aston Villa,210896,34
 172,Ivan Toney,Forward,Brentford,212228,78
-173,Divock Origi,Forward,Liverpool,213135,235
-174,Pablo Marí,Defender,Arsenal,206654,8
+173,Daniel Amartey,Defender,Leicester City,212883,208
+174,Divock Origi,Forward,Liverpool,213135,235
 175,Oliver Skipp,Midfielder,Tottenham,241042,373
 176,Kortney Hause,Defender,Aston Villa,210635,36
-177,Maxwel Cornet,Midfielder,Burnley,215798,578
-178,Ruben Loftus-Cheek,Midfielder,Chelsea,213666,132
+177,Ruben Loftus-Cheek,Midfielder,Chelsea,213666,132
+178,Maxwel Cornet,Midfielder,Burnley,215798,578
 179,Demarai Gray,Midfielder,Everton,220633,484
 180,Marvelous Nakamba,Midfielder,Aston Villa,222994,41
 181,Kristoffer Ajer,Defender,Brentford,224258,483
 182,Connor Roberts,Defender,Burnley,225147,585
 183,Todd Cantwell,Midfielder,Norwich City,225748,325
 184,Ainsley Maitland-Niles,Midfielder,Arsenal,225782,13
-185,Takehiro Tomiyasu,Defender,Arsenal,232938,590
-186,Takumi Minamino,Midfielder,Liverpool,226627,236
-187,Odsonne Edouard,Forward,Crystal Palace,233866,586
-188,Tom Davies,Midfielder,Everton,230005,176
-189,Konstantinos Tsimikas,Defender,Liverpool,232223,245
+185,Takumi Minamino,Midfielder,Liverpool,226627,236
+186,Tom Davies,Midfielder,Everton,230005,176
+187,Konstantinos Tsimikas,Defender,Liverpool,232223,245
+188,Takehiro Tomiyasu,Defender,Arsenal,232938,590
+189,Odsonne Edouard,Forward,Crystal Palace,233866,586
 190,Aaron Ramsdale,Goalkeeper,Arsenal,233934,559
-191,Jean-Philippe Mateta,Forward,Crystal Palace,236461,159
-192,Ryan Sessegnon,Defender,Tottenham,235883,368
+191,Ryan Sessegnon,Defender,Tottenham,235883,368
+192,Jean-Philippe Mateta,Forward,Crystal Palace,236461,159
 193,Frank Onyeka,Midfielder,Brentford,239529,479
 194,Max Aarons,Defender,Norwich City,240060,326
 195,Adam Webster,Defender,Brighton,207616,61
 196,Asmir Begović,Goalkeeper,Everton,172723,481
-197,Christian Benteke,Forward,Crystal Palace,184111,149
-198,James Tomkins,Defender,Crystal Palace,173546,147
-199,Adam Lallana,Midfielder,Brighton,180819,53
+197,James Tomkins,Defender,Crystal Palace,173546,147
+198,Adam Lallana,Midfielder,Brighton,180819,53
+199,Joshua King,Forward,Watford,185422,468
 200,Fabian Delph,Midfielder,Everton,183427,163
-201,Fraser Forster,Goalkeeper,Southampton,172203,333
-202,Joshua King,Forward,Watford,185422,468
-203,Liam Cooper,Defender,Leeds United,189456,184
-204,Alex McCarthy,Goalkeeper,Southampton,189324,334
-205,Ashley Barnes,Forward,Burnley,186905,105
-206,Christian Kabasele,Defender,Watford,190324,384
-207,Nathaniel Clyne,Defender,Crystal Palace,190456,493
-208,Pontus Jansson,Defender,Brentford,194201,76
-209,Grant Hanley,Defender,Norwich City,198904,319
-210,Mateusz Klich,Midfielder,Leeds United,192955,186
+201,Christian Benteke,Forward,Crystal Palace,184111,149
+202,Ashley Barnes,Forward,Burnley,186905,105
+203,Alex McCarthy,Goalkeeper,Southampton,189324,334
+204,Liam Cooper,Defender,Leeds United,189456,184
+205,Christian Kabasele,Defender,Watford,190324,384
+206,Nathaniel Clyne,Defender,Crystal Palace,190456,493
+207,Fraser Forster,Goalkeeper,Southampton,172203,333
+208,Mateusz Klich,Midfielder,Leeds United,192955,186
+209,Pontus Jansson,Defender,Brentford,194201,76
+210,Jordan Ayew,Forward,Crystal Palace,197756,153
 211,Dan Burn,Defender,Brighton,198032,58
-212,Jordan Ayew,Forward,Crystal Palace,197756,153
-213,Nampalys Mendy,Midfielder,Leicester City,198861,203
-214,Stuart Dallas,Midfielder,Leeds United,203570,188
-215,Jeffrey Schlupp,Midfielder,Crystal Palace,200759,155
-216,Calum Chambers,Defender,Arsenal,205989,10
-217,Mohamed Elyounoussi,Midfielder,Southampton,203362,517
+212,Nampalys Mendy,Midfielder,Leicester City,198861,203
+213,Grant Hanley,Defender,Norwich City,198904,319
+214,Jeffrey Schlupp,Midfielder,Crystal Palace,200759,155
+215,Mohamed Elyounoussi,Midfielder,Southampton,203362,517
+216,Stuart Dallas,Midfielder,Leeds United,203570,188
+217,Calum Chambers,Defender,Arsenal,205989,10
 218,James McArthur,Midfielder,Crystal Palace,171972,148
-219,Jonjoe Kenny,Defender,Everton,224263,502
-220,Rico Henry,Defender,Brentford,224494,83
-221,Axel Tuanzebe,Defender,Aston Villa,231485,283
-222,Dimitris Giannoulis,Defender,Norwich City,236457,457
-223,Adam Masina,Defender,Watford,225410,390
-224,Mathias Jensen,Midfielder,Brentford,229723,86
-225,Japhet Tanganga,Defender,Tottenham,236600,371
-226,Malang Sarr,Defender,Chelsea,235454,501
-227,Ethan Pinnock,Defender,Brentford,238717,91
-228,Moussa Djenepo,Midfielder,Southampton,237560,350
-229,Emmanuel Dennis,Forward,Watford,239015,450
-230,Pascal Struijk,Defender,Leeds United,239360,198
-231,Conor Gallagher,Midfielder,Crystal Palace,238216,144
-232,Tariq Lamptey,Defender,Brighton,242418,71
-233,Danny Ward,Goalkeeper,Leicester City,207998,204
-234,Christian Nørgaard,Midfielder,Brentford,210697,77
-235,Jack Stephens,Defender,Southampton,202697,338
+219,Jack Stephens,Defender,Southampton,202697,338
+220,Christian Nørgaard,Midfielder,Brentford,210697,77
+221,Danny Ward,Goalkeeper,Leicester City,207998,204
+222,Rico Henry,Defender,Brentford,224494,83
+223,Mathias Jensen,Midfielder,Brentford,229723,86
+224,Axel Tuanzebe,Defender,Aston Villa,231485,283
+225,Malang Sarr,Defender,Chelsea,235454,501
+226,Adam Masina,Defender,Watford,225410,390
+227,Jonjoe Kenny,Defender,Everton,224263,502
+228,Emmanuel Dennis,Forward,Watford,239015,450
+229,Moussa Djenepo,Midfielder,Southampton,237560,350
+230,Conor Gallagher,Midfielder,Crystal Palace,238216,144
+231,Ethan Pinnock,Defender,Brentford,238717,91
+232,Dimitris Giannoulis,Defender,Norwich City,236457,457
+233,Japhet Tanganga,Defender,Tottenham,236600,371
+234,Pascal Struijk,Defender,Leeds United,239360,198
+235,Tariq Lamptey,Defender,Brighton,242418,71
 236,Christos Tzolis,Midfielder,Norwich City,256948,528
 237,Mark Noble,Midfielder,West Ham,152879,406
 238,Danny Rose,Defender,Watford,169595,377
 239,Darren Randolph,Goalkeeper,West Ham,169697,407
-240,William Troost-Ekong,Defender,Watford,213414,387
-241,Ken Sema,Midfielder,Watford,213750,391
+240,Tyler Roberts,Midfielder,Leeds United,228815,193
+241,William Troost-Ekong,Defender,Watford,213414,387
 242,Hamza Choudhury,Midfielder,Leicester City,228332,214
-243,Tyler Roberts,Midfielder,Leeds United,228815,193
+243,Sam Byram,Defender,Norwich City,208892,321
 244,Trevoh Chalobah,Defender,Chelsea,230918,527
-245,Sam Byram,Defender,Norwich City,208892,321
+245,Ken Sema,Midfielder,Watford,213750,391
 246,Vitaly Janelt,Midfielder,Brentford,235167,84
-247,Nathaniel Phillips,Defender,Liverpool,240926,241
+247,Ibrahima Diallo,Midfielder,Southampton,239452,349
 248,Marc Guéhi,Defender,Crystal Palace,241159,477
-249,Lukas Rupp,Midfielder,Norwich City,246069,317
-250,Ibrahima Diallo,Midfielder,Southampton,239452,349
-251,Curtis Jones,Midfielder,Liverpool,242434,244
-252,Harvey Elliott,Midfielder,Liverpool,246174,506
-253,Michael Olise,Midfielder,Crystal Palace,247827,464
-254,Jay Rodriguez,Forward,Burnley,169792,104
+249,Nathaniel Phillips,Defender,Liverpool,240926,241
+250,Curtis Jones,Midfielder,Liverpool,242434,244
+251,Michael Olise,Midfielder,Crystal Palace,247827,464
+252,Jay Rodriguez,Forward,Burnley,169792,104
+253,Lukas Rupp,Midfielder,Norwich City,246069,317
+254,Harvey Elliott,Midfielder,Liverpool,246174,506
 255,Wayne Hennessey,Goalkeeper,Burnley,170084,480
 256,Erik Pieters,Defender,Burnley,178567,100
-257,Martin Kelly,Defender,Crystal Palace,184037,151
-258,Joel Ward,Defender,Crystal Palace,186392,474
-259,Tom Cleverley,Midfielder,Watford,189725,381
-260,Luke Thomas,Defender,Leicester City,254470,219
+257,Tom Cleverley,Midfielder,Watford,189725,381
+258,Martin Kelly,Defender,Crystal Palace,184037,151
+259,Joel Ward,Defender,Crystal Palace,186392,474
+260,Nathan Collins,Defender,Burnley,248484,451
 261,Shane Long,Forward,Southampton,169216,519
-262,Nathan Collins,Defender,Burnley,248484,451
-263,Dan Gosling,Midfielder,Watford,184749,378
-264,Jed Steer,Goalkeeper,Aston Villa,192317,28
-265,Craig Cathcart,Defender,Watford,180706,379
-266,Shane Duffy,Defender,Brighton,192622,56
+262,Luke Thomas,Defender,Leicester City,254470,219
+263,Craig Cathcart,Defender,Watford,180706,379
+264,Shane Duffy,Defender,Brighton,192622,56
+265,Dan Gosling,Midfielder,Watford,184749,378
+266,Jed Steer,Goalkeeper,Aston Villa,192317,28
 267,Ben Gibson,Defender,Norwich City,200408,456
-268,Angus Gunn,Goalkeeper,Norwich City,216325,448
-269,Sergi Canós,Midfielder,Brentford,224013,81
-270,Joe Rodon,Defender,Tottenham,229266,374
-271,Oghenekaro Etebo,Midfielder,Watford,234457,467
-272,Bryan Mbeumo,Midfielder,Brentford,243014,96
+268,Bryan Mbeumo,Midfielder,Brentford,243014,96
+269,Francisco Sierralta,Defender,Watford,228681,396
+270,Sergi Canós,Midfielder,Brentford,224013,81
+271,Joe Rodon,Defender,Tottenham,229266,374
+272,Oghenekaro Etebo,Midfielder,Watford,234457,467
 273,Billy Gilmour,Midfielder,Norwich City,245992,145
-274,Danny Welbeck,Forward,Brighton,186146,447
-275,Francisco Sierralta,Defender,Watford,228681,396
-276,Aaron Lennon,Midfielder,Burnley,152747,575
-277,Dale Stephens,Midfielder,Burnley,182184,102
-278,Kenny McLean,Midfielder,Norwich City,201368,318
+274,Aaron Lennon,Midfielder,Burnley,152747,575
+275,Dale Stephens,Midfielder,Burnley,182184,102
+276,Danny Welbeck,Forward,Brighton,186146,447
+277,Kenny McLean,Midfielder,Norwich City,201368,318
+278,Angus Gunn,Goalkeeper,Norwich City,216325,448
 279,Jack Butland,Goalkeeper,Crystal Palace,203042,156
 280,Tyrick Mitchell,Defender,Crystal Palace,240947,162
 281,John Ruddy,Goalkeeper,Wolves,163600,452
 282,Jacob Sørensen,Defender,Norwich City,233705,327
 283,Steven Alzate,Midfielder,Brighton,236529,73
 284,Daniel Bachmann,Goalkeeper,Watford,209532,389
-285,Aaron Connolly,Forward,Brighton,237286,72
+285,Max Kilman,Defender,Wolves,245336,439
 286,Jakub Moder,Midfielder,Brighton,239778,75
-287,Max Kilman,Defender,Wolves,245336,439
-288,Phil Bardsley,Defender,Burnley,163261,99
-289,Adam Forshaw,Midfielder,Leeds United,193910,552
+287,Aaron Connolly,Forward,Brighton,237286,72
+288,Nuno Tavares,Defender,Arsenal,251530,466
+289,Marcus Bettinelli,Goalkeeper,Chelsea,204246,606
 290,Armando Broja,Forward,Southampton,256268,518
-291,Nuno Tavares,Defender,Arsenal,251530,466
-292,Marcus Bettinelli,Goalkeeper,Chelsea,204246,606
+291,Phil Bardsley,Defender,Burnley,163261,99
+292,Adam Forshaw,Midfielder,Leeds United,193910,552
 293,Kevin Long,Defender,Burnley,194146,103
 294,Jürgen Locadia,Forward,Brighton,204366,595
 295,Kieran Dowell,Midfielder,Norwich City,226401,323
