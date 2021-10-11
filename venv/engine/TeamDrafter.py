@@ -88,10 +88,10 @@ def analyze(players, player_type):
     normalized_players = normalized_players[normalized_players['aggregate'] > 0]
     normalized_players = normalized_players.sort_values(by=['aggregate', 'now_cost'], ascending=False)
 
-    players_to_analyze = 15
-    if len(normalized_players) <= 15:
+    players_to_analyze = 25
+    if len(normalized_players) <= 25:
         players_to_analyze = len(normalized_players)
-    normalized_players.to_csv(player_type + ".csv")
+    # normalized_players.to_csv(player_type + ".csv")
     # normalized_players.loc[0:players_to_analyze, :]
 
 
@@ -137,7 +137,6 @@ def cost_analysis(players, cost, number, player_type=None):
     top_player_count = 1
     mid_player_count = number - efficient_player_count - top_player_count
 
-    top_player_count = 2
     if player_type == "Defender":
         top_player_count = 3
         efficient_player_count = 2
