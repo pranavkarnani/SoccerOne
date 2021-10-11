@@ -4,7 +4,6 @@ import re
 import numpy as np
 import pandas as pd
 import datetime
-import knapsack01
 
 FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
 ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
@@ -82,24 +81,29 @@ def analyze(players, player_type):
 
     #Display image
     cost = 100
-    normalized_players["status"] = 0
+    normalized_players["efficiency"] = normalized_players["aggregate"] / normalized_players["now_cost"]
     normalized_players = normalized_players.sort_values(
-        by='now_cost', ascending=False).reset_index().drop(["index"], axis=1)
+        by=['efficiency','now_cost'], ascending=False).reset_index().drop(["index"], axis=1)
 
+    #print(normalized_players[['Name','aggregate','now_cost']])
     if player_type == "Forward":
-        x = best_weight(normalized_players, 'now_cost', 21, 0, 0)
+        normalized_players["status"] = 0
+        x = best_weight(normalized_players, 'now_cost', 21, 0,0) #3
         cost -= np.sum(x[x['status'] == 1]['now_cost'])
         print(x[x["status"] == 1])
     if player_type == "Goalkeeper":
-        x = best_weight(normalized_players, 'now_cost', 9, 0, 0)
+        normalized_players["status"] = 0
+        x = best_weight(normalized_players, 'now_cost', 9, 0, 0) #2
         cost -= np.sum(x[x['status'] == 1]['now_cost'])
         print(x[x["status"] == 1])
     elif player_type == "Defender":
-        x = best_weight(normalized_players, 'now_cost', 28, 0, 0)
+        normalized_players["status"] = 0
+        x = best_weight(normalized_players, 'now_cost', 28, 0, 0) #5
         cost -= np.sum(x[x['status'] == 1]['now_cost'])
         print(x[x["status"] == 1])
     elif player_type == "Midfielder":
-        x = best_weight(normalized_players, 'now_cost', 42, 0, 0)
+        normalized_players["status"] = 0
+        x = best_weight(normalized_players, 'now_cost', 42, 0, 0) #5
         cost -= np.sum(x[x['status'] == 1]['now_cost'])
         print(x[x["status"] == 1])
 
@@ -115,20 +119,16 @@ def compute_score(player_z, metrics):
     return player_z
 
 
-def best_weight(data, reason, rest, values, index):
-    if rest < np.min(data.loc[range(index, len(data)), reason]) or (index == len(data)):
-        return values
-    else:
-        if rest >= data[reason][index]:
-            data.loc[index, 'status'] = 1
-            rest = rest - data[reason][index]
-            values = values + data["aggregate"][index]
-            index = index + 1
-            values = best_weight(data, reason, rest, values, index)
-            return data
-        else:
-            index = index + 1
-            values = best_weight(data, reason, rest, values, index)
-            return data
+def cost_player_selector(df,cost,num):
+    i = 0
+    j = 0
+    while(i < len(df)):
+        while(j< len(df)):
+            if(cost>df.loc[i]['now_cost']):
+
+
+
+
+
 
 make_team()
