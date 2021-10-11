@@ -67,44 +67,26 @@ while (True):
     first_selection = input()
     if (first_selection == "1"):
         fwds, mids, defs, goalies = make_team()
-        selected_fwd = cost_wrapper(fwds)
-        selected_mid = cost_wrapper(mids)
-        selected_defender = cost_wrapper(defs)
-        selected_goalkeeper = cost_wrapper(goalies)
         while (True):
-            print("""Here are our Picks.
-            #Populate from a function and then display here
-            1. 
-            2.
-            3.
-            4.
-            5.
-            6.
-            7.
-            8.
-            9.
-            10.
-            11.
-            12.
-            
-            1.1 Why we choose the team
-            1.2 Player performance Analysis
-            1.3 Player Alternatives
-            1.4 Why this formation
-            1.5 Why not certain players
-            1.6 Back to main menu""")
+            print("""Here are the top players for each position
+                       
+            1. Advanced Analytics
+            2. Our Recommendation (Top 15)
+            3. Back to main menu""")
+            plots.scatter_plot_for_player_points(fwds,"Cost","Points","Points per game vs cost for Forwards",'points_per_game')
+            plots.scatter_plot_for_player_points(mids,"Cost","Points","Points per game vs cost for Midfielders",'points_per_game')
+            plots.scatter_plot_for_player_points(defs,"Cost","Points","Points per game vs cost for Defender",'points_per_game')
+            plots.scatter_plot_for_player_points(goalies,"Cost","Points","Points per game vs cost for GoalKeepers",'points_per_game')
             player_pick_selection = input()
             if (player_pick_selection == "1"):
-                print("Reasons for choosing the team")
+                print("Advanced Analytics")
             elif (player_pick_selection == "2"):
-                print("Player Performance")
+                selected_fwd = cost_wrapper(fwds)
+                selected_mid = cost_wrapper(mids)
+                selected_defender = cost_wrapper(defs)
+                selected_goalkeeper = cost_wrapper(goalies)
+                print("Our Recommendation (Top 15)")
             elif (player_pick_selection == "3"):
-                print("Player Alternatives")
-            elif (player_pick_selection == "4"):
-                print("Formation reasoning")
-            elif (player_pick_selection == "5"):
-                print("Why we didn't choose...")
-            elif (player_pick_selection == "6"):
                 break
             else:
                 print('Incorrect input')

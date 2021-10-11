@@ -54,13 +54,36 @@ def radar_charts_player_stats(*argv):
 #radar_charts_player_stats(231677)
 
 # Scatter PLot from season player stats
-def scatter_plot_for_player_points(*argv):
-    os.chdir('../data/')
-    df = pd.read_csv("season_player_stats_df.csv")
-    df = df[:25]
-    print(df['points_per_game'])
-    fig = px.scatter(df, x="now_cost", y="points_per_game",
-                     size="now_cost", hover_data=['fullname']) #what should the size be dependent on
+def scatter_plot_for_player_points(df,xaxis,yaxis,title,y):
+    fig = go.Figure()
+    df['points_per_game_int'] = df['points_per_game'].astype(int)
+    fig.add_trace(go.Scatter(
+        x = df['now_cost'],
+        y = df[y],
+        hovertext = df['Name'],
+        text = df['ep_this'],
+        hovertemplate=
+        "<b>%{hovertext}</b><br><br>" +
+        "Expected points: %{text:,}<br>" +
+        "Points per game: %{y:,}<br>" +
+        "Cost: %{x:,}" +
+        "<extra></extra>",
+        marker_size=df['points_per_game_int'],
+
+    ))
+    fig.update_traces(
+        mode='markers',
+        marker={'sizemode': 'area',
+                'sizeref': 0.01})
+
+    fig.update_layout(
+        xaxis={
+            'title': xaxis},
+        yaxis={'title': yaxis},
+        title = title)
+    # fig = px.scatter(df, x="now_cost", y="points_per_game",
+    #                  size="points_per_game", hover_data=['Name'],
+    #                  title=title)
     fig.show()
 
 
@@ -80,7 +103,7 @@ def expected_points():
                  height=400,
                  title='Expected Points from the team')
     fig.show()
-expected_points()
+
 
 
 
