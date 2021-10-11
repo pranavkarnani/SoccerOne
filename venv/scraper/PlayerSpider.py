@@ -12,6 +12,8 @@ from scrapy.utils.project import get_project_settings
 from scrapy.utils.log import configure_logging
 from itemloaders import ItemLoader
 from models.Player import Player
+from scraper.News import get_news_titles
+from data_processors.NewsCleaner import clean_news
 
 class PlayerSpider(scrapy.Spider):
     name = "players"
@@ -283,6 +285,8 @@ def schedule_next_crawl(null, hour, minute):
 
 def crawl_url():
     getFantasyPL()
+    get_news_titles()
+    clean_news()
     configure_logging()
     print('crawling')
     d = crawl_job()
