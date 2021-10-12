@@ -142,7 +142,7 @@ while (True):
 
                 selected_fwd = selected_fwd.merge(fifa.loc[:, forward_metrics], how="left", left_on="Fifa_ID",
                                                   right_on="ID")
-                #print(selected_fwd)
+
                 selected_mid = selected_mid.merge(fifa.loc[:, mids_metrics], how="left", left_on="Fifa_ID",
                                                   right_on="ID")
                 selected_defender = selected_defender.merge(fifa.loc[:, defender_metrics], how="left",
@@ -166,8 +166,26 @@ while (True):
                     #print(item)
                     goalkeeper_score.append(np.mean(selected_goalkeeper[item]))
 
-                plots.pie_subplot(forward_metrics, forward_score, mids_metrics, midfield_score, defender_metrics, defender_score,
-                            goalkeeper_metrics, goalkeeper_score, "Pie Chart with Metrics of our selected team")
+                #Populating piechart based on the metrics of the recommended players
+                plots.pie_subplot(forward_metrics, forward_score, mids_metrics, midfield_score,
+                                  "Pie Chart with Forwards and Midfield metrics of our selected team",
+                                  "Forwards", "Midfielders")
+                plots.pie_subplot(defender_metrics, defender_score,goalkeeper_metrics, goalkeeper_score,
+                                  "Pie Chart with Defender and GoalKeeper metrics of our selected team",
+                                  "Defenders", "Goalkeepers")
+
+                # Populate the encircled recommended players
+                fifa = pd.read_csv(DATA_PATH + get_file())
+                selected_fwd = cost_wrapper(fwds, "Forward").loc[:, ['Name', 'Fifa_ID']]
+                selected_mid = cost_wrapper(mids, "Midfielder").loc[:, ['Name', 'Fifa_ID']]
+                selected_defender = cost_wrapper(defs, "Defender").loc[:, ['Name', 'Fifa_ID']]
+                selected_goalkeeper = cost_wrapper(goalies, "Goalkeeper").loc[:, ['Name', 'Fifa_ID']]
+                fwds, mids, defs, goalies = make_team()
+
+                plots.recommended_players_encircle(4, fwds, mids, defs, goalies, "Cost",
+                                                   "Points per Game", 'points_per_game', 0.01,
+                                                   selected_fwd,selected_mid,selected_defender,
+                                                   selected_goalkeeper)
                 # print(dict(zip(forward_metrics, forward_score)))
                 # print(dict(zip(mids_metrics, midfield_score)))
                 # print(dict(zip(defender_metrics, defender_score)))

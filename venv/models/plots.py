@@ -110,6 +110,78 @@ def get_fig_scatter(df, y):
     )
     return trace
 
+def recommended_players_encircle(graphs, fwds, mids, defenders, goalies, xaxis, yaxis,
+                                 y,marker_size_ref,selected_fwd,selected_mid,selected_def,
+                                 selected_goalies):
+    if graphs == 4:
+        title = ""
+        title = y.replace("_", " ")
+        title = title.capitalize() + " vs Cost"
+        fig = make_subplots(rows=int(graphs / 2), cols=2, specs=[[{"type":"scatter"}, {"type":"scatter"}],
+                                                                 [{"type":"scatter"}, {"type":"scatter"}]],
+                            subplot_titles=("Forwards", "Midfielders", "Defenders", "Goalkeepers"))
+
+        fig.add_trace(get_fig_scatter(fwds, y), row=1, col=1)
+        fig.add_trace(get_fig_scatter(mids, y), row=1, col=2)
+        fig.add_trace(get_fig_scatter(defenders, y), row=2, col=1)
+        fig.add_trace(get_fig_scatter(goalies, y), row=2, col=2)
+
+        selected_fwd_fifa_id = selected_fwd['Fifa_ID']
+        selected_mid_fifa_id = selected_mid['Fifa_ID']
+        selected_def_fifa_id = selected_def['Fifa_ID']
+        selected_goalie_fifa_id = selected_goalies['Fifa_ID']
+        selected_fwd_points = []
+        selected_mid_points = []
+        selected_def_points = []
+        selected_goalie_points = []
+        print(fwds[['Fifa_ID','ep_this','now_cost']])
+
+        for i in selected_fwd_fifa_id:
+            print(fwds[['Fifa_ID']==i])
+            #selected_fwd_points.append(fwds[['Fifa_ID']==i])
+        for i in selected_mid_fifa_id:
+            selected_mid_points.append(fwds[['Fifa_ID']==i])
+        for i in selected_def_fifa_id:
+            selected_def_points.append(fwds[['Fifa_ID']==i])
+        for i in selected_goalie_fifa_id:
+            selected_goalie_points.append(fwds[['Fifa_ID']==i])
+
+        print(selected_fwd_points)
+        print(selected_mid_points)
+        print(selected_def_points)
+        print(selected_goalie_points)
+
+
+
+        fig.add_shape(type="circle",
+                      xref="x", yref="y",
+                      x0=1, y0=2,
+                      x1=3, y1=4,
+                      opacity=0.2,
+                      fillcolor="blue",
+                      line_color="blue",
+                      row=1,
+                      col=1
+                      )
+        fig.update_traces(
+            mode='markers',
+            marker={'sizemode': 'area',
+                    'sizeref': marker_size_ref})
+        for i in range(1, 3):
+            for j in range(1, 3):
+                fig.update_xaxes(title_text=xaxis, row=i, col=j)
+                fig.update_yaxes(title_text=yaxis, row=i, col=j)
+
+        fig.update_layout(title_text=title + " By Position")
+
+
+        fig.show()
+    else:
+        fig = make_subplots(rows=1, cols=1)
+        fig.add_trace(get_fig_scatter(df, xaxis, yaxis, title, y))
+        fig.update_xaxes(title_text=xaxis, row=1, col=1)
+        fig.update_yaxes(title_text=yaxis, row=1, col=1)
+
 # Send over a df and then we build the chart from the points column
 # X will be points column and y will just be a column with one value
 # color will be based on player name
@@ -139,15 +211,12 @@ def player_news_plots():
     plt.show()
 
 # Build a subplot with all the pie charts that have been built based on player metrics and score
-def pie_subplot(fwd_metrics,fwd_score,mids_metrics,midfield_score,defender_metrics,defender_score,
-                goalkeeper_metrics,goalkeeper_score,title):
-    fig = make_subplots(rows=2, cols=2, specs=[[{"type": "pie"}, {"type": "pie"}],
-                                                             [{"type": "pie"}, {"type": "pie"}]],
-                        subplot_titles=("Forwards", "Midfielders", "Defenders", "Goalkeepers"))
-    fig.add_trace(position_analytics_pie(fwd_metrics, fwd_score), row=1, col=1)
-    fig.add_trace(position_analytics_pie(mids_metrics, midfield_score), row=1, col=2)
-    fig.add_trace(position_analytics_pie(defender_metrics, defender_score), row=2, col=1)
-    fig.add_trace(position_analytics_pie(goalkeeper_metrics, goalkeeper_score), row=2, col=2)
+def pie_subplot(metric_1,score_1,metric_2,score_2,title,subplot1_title,subplot2_title):
+    fig = make_subplots(rows=1, cols=2, specs=[[{"type": "pie"}, {"type": "pie"}]],
+                        subplot_titles=(subplot1_title, subplot2_title))
+    fig.add_trace(position_analytics_pie(metric_1, score_1), row=1, col=1)
+    fig.add_trace(position_analytics_pie(metric_2, score_2), row=1, col=2)
+
 
     fig.update_layout(title_text=title)
     fig.show()
