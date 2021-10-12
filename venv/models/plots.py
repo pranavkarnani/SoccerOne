@@ -1,4 +1,4 @@
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
 from plotly.subplots import make_subplots
@@ -8,13 +8,16 @@ import os
 import pandas as pd
 import plotly.graph_objects as go
 
+FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
+ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
+DATA_PATH = ROOT_DIR + '/data/'
 
 def radar_charts_player_stats(*argv):
     categories = ['Ball_Skills', 'Defence', 'Physical', 'Shooting', 'Mental', 'Passing', 'Goalkeeper']
     categories = [*categories, categories[0]]
     if len(argv) == 1:
-        player_df = po.overall_id(argv[0])
-        print(player_df)
+        player_df = po.overall_id(argv[0].Fifa_ID)
+        print(player_df[['Name','Overal']])
         player = player_df.iloc[0, 1:8]
         player = [*player, player[0]]
         # print(player)
@@ -29,15 +32,16 @@ def radar_charts_player_stats(*argv):
             )
         )
         pyo.plot(fig)
-    elif len(argv) == 2:
-        player_df_1 = po.overall_id(argv[0])
-        player_df_2 = po.overall_id(argv[1])
+    elif len(argv) > 1:
+        player_df_1 = po.overall_id(argv[0].Fifa_ID)
+        player_df_2 = po.overall_id(argv[1].Fifa_ID)
         player_1 = player_df_1.iloc[0, 1:8]
         player_1 = [*player_1, player_1[0]]
         player_2 = player_df_2.iloc[0, 1:8]
         player_2 = [*player_2, player_2[0]]
-        print(player_1)
-        print(player_2)
+        # print(player_1)
+        # print(player_2)
+        print(player_df_2[['Name', 'Overal']])
         fig = go.Figure(
             data=[
                 go.Scatterpolar(r=player_1, theta=categories, fill='toself', name=player_df_1.Name.to_string()),
@@ -116,4 +120,19 @@ def expected_points(df):
                  )
 
     fig.show()
+
+def player_news_plots():
+    player_news = pd.read_csv(DATA_PATH+"featured.csv")
+    fig, ax = plt.subplots(figsize=(16, 10), dpi=80)
+    ax.hlines(y=player_news.Player, xmin=1, xmax=5, color='gray', alpha=0.7, linewidth=1, linestyles='dashdot')
+    ax.scatter(y=player_news.Player, x=player_news.Times, s=75, color='firebrick', alpha=0.7)
+
+    # Title, Label, Ticks and Ylim
+    ax.set_title('No. of times players are mentioned in the news', fontdict={'size': 22})
+    ax.set_xlabel('News mentions')
+    ax.set_yticks(player_news.Player)
+    ax.set_yticklabels(player_news.Player, fontdict={'horizontalalignment': 'right'})
+    ax.set_xlim(0, 8)
+    plt.show()
+
 

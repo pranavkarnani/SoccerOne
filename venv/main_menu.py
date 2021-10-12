@@ -65,13 +65,13 @@ def player_overall_stats(id):
             player_stats_input = input()
             if (player_stats_input == 'Y'):
                 print(soccer_master_temp.loc[:30, ['Name', 'position', 'Club', 'Fifa_ID', 'Overal']])
+                print("Enter the index of the player to compare against")
                 player_stat_2 = input()
                 player_stat_2 = int(player_stat_2)
-                if (player_stat >= 0 and player_stat <= 30):
-                    if (player_stat >= 0 and player_stat <= 30):
-                        plots.radar_charts_player_stats(soccer_master_temp.loc[player_stat]['Fifa_ID'],
-                                                        soccer_master_temp.loc[player_stat_2]['Fifa_ID'])
-                        break
+                if (player_stat_2 >= 0 and player_stat_2 <= 30):
+                    plots.radar_charts_player_stats(soccer_master_temp.loc[player_stat,['Fifa_ID']],
+                                                    soccer_master_temp.loc[player_stat_2,['Fifa_ID']])
+                    break
             elif (player_stats_input == 'N'):
                 break
 
@@ -204,7 +204,8 @@ while (True):
     elif (first_selection == "3"):
         fd.fixture_difficulty()
     elif (first_selection == "4"):
-        print("League Standings")
+        print( "Details of player mentions from News")
+        plots.player_news_plots()
     elif (first_selection == "5"):
         break
     else:
