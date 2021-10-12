@@ -115,7 +115,7 @@ def get_fig_scatter(df, y):
 # color will be based on player name
 def expected_points(df):
     fig = px.bar(df, x="ep_this", y="Team", color='Name',
-                 color_discrete_sequence=['#003f5c','#2f4b7c','#665191','#a05195','#d45087','#f95d6a','#ff7c43','#ffa600'],
+                 color_discrete_sequence=['#00876c','#3d9a70','#64ad73','#89bf77','#afd17c','#d6e184','#fff18f','#fdd576','#fbb862','#f59b56','#ee7d4f','#e35e4e','#d43d51','#923737','#652b2b'],
                  orientation='h',
                  height=400,
                  title='Expected Points from the team',

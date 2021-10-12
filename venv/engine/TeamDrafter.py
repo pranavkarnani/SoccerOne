@@ -8,6 +8,7 @@ import datetime
 FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
 ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
 DATA_PATH = ROOT_DIR + '/data/'
+pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def get_date(filename):
