@@ -1,3 +1,6 @@
+# Creates the soccer one master file which contains references to all other csv's
+# SoccerOneMaster.csv contains the player name, postion, fantasy premier league player ID and fifa ID
+# One CSV that will fetch you records from every CSV that exists
 import os
 import re
 import datetime
@@ -11,6 +14,7 @@ def get_date(filename):
         return None
     m, d, y = map(int, matched.groups())
     return datetime.date(y, m, d)
+
 
 def makeMaster():
     FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
@@ -27,7 +31,11 @@ def makeMaster():
 
     fifa = pd.read_csv(DATA_PATH+latest_file[0])
     fpl = pd.read_csv(DATA_PATH+'season_player_stats_df.csv')
+
+    # fetches all fifa players with overall > 70
     fifa = fifa[fifa["Overal"] >= 70]
+
+    # Inner join on name and club
     soccerOneDF = fifa.merge(fpl, how='inner', left_on=['Name', 'Club'], right_on=['fullname', 'Club'])
     soccerOneDF = soccerOneDF.rename({'ID': 'Fifa_ID'}, axis=1)
     soccerOneDF = soccerOneDF.rename({'id': 'Fpl_ID'}, axis=1)

@@ -4,17 +4,25 @@ import pandas as pd
 import numpy as np
 import os
 
+
+# Function that fetches upcoming fixtures for this season
 def getFixtures():
+
+    # Initializing path to the data directory
     FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
     ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
     DATA_PATH = ROOT_DIR+'/data/'
     print('get fixtures')
 
+    # Url containing all fixtures
     fixtures_url = 'https://cdn.bettingexpert.com/assets/England-Premier-League-fixture-2021-2022.csv'
 
+    # Downloading csv file from the url
     req = requests.get(fixtures_url)
     url_content = req.content
     csv_file = open(DATA_PATH+'England-Premier-League-fixture-2021-2022.csv', 'wb')
+
+    # Writing data to the CSV file
     csv_file.write(url_content)
     csv_file.close()
     gameday_nested = [(i, i, i, i, i, i, i, i, i, i) for i in range(1, 39)]

@@ -1,9 +1,12 @@
+# Player Model Class
+# Referred from PlayerSpider class to create player objects and store player attributes
 from scrapy import Item, Field
+
 
 class Player(Item):
     ID = Field()
 
-    # General
+    # General attributes of the Player
     Name = Field()
     Natinality = Field()
     Overal = Field()
@@ -32,7 +35,7 @@ class Player(Item):
     Club_JoinedClub = Field()
     Club_ContractLength = Field()
 
-    # BallSkills
+    # Ball Skills
     BallControl = Field()
     Dribbling = Field()
 
@@ -80,5 +83,6 @@ class Player(Item):
     GKKicking = Field()
     GKReflexes = Field()
 
+    # Player Traits
     Traits = Field()
     Specialities = Field()

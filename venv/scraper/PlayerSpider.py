@@ -15,10 +15,12 @@ from models.Player import Player
 from scraper.News import get_news_titles
 from data_processors.NewsCleaner import clean_news
 
+# Player Spider used to get all player attributes from the FIFA Index Website using Scrapy
 class PlayerSpider(scrapy.Spider):
     name = "players"
     domain = "https://www.fifaindex.com/"
 
+    # Start request url defined
     def start_requests(self):
         start_urls = [
             'https://www.fifaindex.com/players/?gender=0&league=13&order=desc'
@@ -27,6 +29,7 @@ class PlayerSpider(scrapy.Spider):
         for url in start_urls:
             yield scrapy.Request(url=url, callback=self.parse)
 
+    # Parsing the url to get the content in that page
     def parse(self, response, **kwargs):
         playerTable = (response.xpath(
             '//table[@class="table table-striped table-players"]/tbody/tr/td/figure[@class="player"]/a/@href').getall())
@@ -36,6 +39,7 @@ class PlayerSpider(scrapy.Spider):
             print(playerUrl)
             yield scrapy.Request(url=playerUrl, callback=self.parse_player)
 
+        # Fetches the next page in url to tackle pagination
         try:
             time.sleep(0.25)
             nextPage = response.xpath("//a[contains(text(), 'Next Page')]/@href").get()
@@ -43,6 +47,7 @@ class PlayerSpider(scrapy.Spider):
         except error:
             print(error)
 
+    # Parses all the player attributes
     def parse_player(self, response):
         player = ItemLoader(item=Player())
         ID = str(response.url).split('/')[4]
@@ -63,6 +68,8 @@ class PlayerSpider(scrapy.Spider):
         PlayerWorkRate = 'NA'
         PlayerWorkRateTemp = response.xpath(
             "//p[contains(text(), 'Player Work Rate')]/span/text()").get()
+
+        # Handling null data
         if PlayerWorkRateTemp is not None:
             PlayerWorkRate.replace(" ", "")
         WeakFoot = str(len(response.xpath("//p[contains(text(), 'Weak Foot')]//i[contains(@class, 'fas')]")))
@@ -133,6 +140,7 @@ class PlayerSpider(scrapy.Spider):
         except e:
             pass
 
+    # Fetches text based on response.xpath
         BallControl = response.xpath(
             "//p[contains(text(), 'Ball Control')]/span/span/text()").get()
         Dribbling = response.xpath(
@@ -213,6 +221,7 @@ class PlayerSpider(scrapy.Spider):
         Specialities = "/".join(response.xpath(
             "//div[contains(h5/text(), 'Specialities')]/div/p/text()").getall())
 
+        # Adding attributes to the player object
         player.add_value("BallControl", BallControl)
         player.add_value("Dribbling", Dribbling)
 
@@ -259,6 +268,7 @@ class PlayerSpider(scrapy.Spider):
 
         yield player.load_item()
 
+# Crawl Job driver - Sets the spider settings
 def crawl_job():
     settings = get_project_settings()
     date_time = dt.datetime.now().strftime("%m-%d-%Y")
@@ -275,6 +285,7 @@ def crawl_job():
     return runner.crawl(PlayerSpider)
 
 
+# Schedules the next crawl using twisted internet's reactor
 def schedule_next_crawl(null, hour, minute):
     tomorrow = (
             dt.datetime.now() + dt.timedelta(days=1)
@@ -283,6 +294,7 @@ def schedule_next_crawl(null, hour, minute):
     reactor.callLater(sleep_time, crawl_url)
 
 
+# Driver function which fetches news, latest player season stats, updated player stats (fifa)
 def crawl_url():
     getFantasyPL()
     get_news_titles()
@@ -290,6 +302,7 @@ def crawl_url():
     configure_logging()
     print('crawling')
     d = crawl_job()
+    # Adding callback at 1:30PM
     d.addCallback(schedule_next_crawl, hour=13, minute=30)
     d.addErrback(catch_error)
     reactor.run()

@@ -1,3 +1,6 @@
+# File - fetches all news with query as Premier League from Google News using beautiful soup
+# Auto - scheduled scraper which is invoked everyday at 1:30 PM
+
 import os
 import requests
 import datetime
@@ -40,13 +43,15 @@ def paginate(url, previous_url=None):
 
 
 def get_news_titles():
+    # Gets all pages
     pages = paginate("https://www.google.com/search?hl=en-US&q=premierleague&tbm=nws")
     newsTitles = []
     for soup in pages:
         print(f'Current page: {int(soup.select_one(".YyVfkd").text)}\n')
-
+        # Finding all headlines
         for result in soup.find_all("div", attrs={"role": "heading"}):
             newsTitles.append(result.text)
 
+    # Converting to dataframe and adding a new CSV
     news = pd.DataFrame({"news": newsTitles})
     news.to_csv(DATA_PATH + "news.csv")

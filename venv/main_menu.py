@@ -9,6 +9,8 @@ import pandas as pd
 import models.plots as plots
 import engine.fixture_difficulty as fd
 
+# Curates the soccer one master file which contains records to all other CSV's, following databased retrieval principles
+# Removes transitive dependencies
 makeMaster()
 
 FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
@@ -34,6 +36,8 @@ def get_file():
     return latest_file[0]
 
 
+# Creates the overall stats for players based on Fifa stats
+# These stats are used in section 2 - Player Comparison analysis
 def player_overall_stats(id):
     soccer_master = pd.read_csv(DATA_PATH + "soccerOneMaster.csv")
     player_overall = pd.read_csv(DATA_PATH + "player_overall.csv")
@@ -51,15 +55,19 @@ def player_overall_stats(id):
     elif (id == 4):
         soccer_master_temp = soccer_master.loc[soccer_master['position'] == 'Goalkeeper']
 
+    # Displays top 30 player based on their overall value card
     soccer_master_temp = soccer_master_temp.sort_values(
         by=['Overal'], ascending=False).reset_index().drop(["index"], axis=1)
     print(soccer_master_temp.loc[:30, ['Name', 'position', 'Club', 'Fifa_ID', 'Overal']])
+
+    # Displays a radar plot comparing the attributes of each player
     print("1. Enter the index against the player to see their stats")
     print("3. Press 2 to return to previous menu")
     player_stat = input()
     player_stat = int(player_stat)
     while (True):
         if (player_stat >= 0 and player_stat <= 30):
+            # Plotting radar plot
             plots.radar_charts_player_stats(soccer_master_temp.loc[player_stat, ['Fifa_ID']])
             print("Compare against another player(Y/N)?")
             player_stats_input = input()
@@ -78,7 +86,7 @@ def player_overall_stats(id):
         elif (player_stat == 2):
             break
 
-
+# Main menu / Menu driven program
 while (True):
     print("""
    Analytics
@@ -97,10 +105,12 @@ while (True):
             2. Our Recommendation (Top 15)
             3. Recommended Team Position Analytics
             4. Back to main menu""")
+            # Used to make a scatter plot
             plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Points per Game", 'points_per_game', 0.01)
             player_pick_selection = input()
             if (player_pick_selection == "1"):
                 print("Advanced Analytics")
+                # Used to make a scatter plots based on player form, season value, total points, influence index
                 plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Form", 'form', 0.01)
                 plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Value this season", 'value_season', 0.01)
                 plots.subplot_scatter(4, fwds, mids, defs, goalies, "Cost", "Total Points", 'total_points', 0.1)
@@ -109,6 +119,9 @@ while (True):
                 break
 
             elif (player_pick_selection == "2"):
+                # Our recommended lineup for the upcoming gameweek
+                # Selects 3 forwards, 5 midfielders, 5 defenders, 2 goalkeepers
+                # Requirements as per Fantasy Premier League
                 selected_fwd = cost_wrapper(fwds, "Forward")
                 selected_mid = cost_wrapper(mids, "Midfielder")
                 selected_defender = cost_wrapper(defs, "Defender")
@@ -127,17 +140,23 @@ while (True):
 
             elif (player_pick_selection == "3"):
                 print("Position Analysis")
+
+                # Used to find position analysis
                 fifa = pd.read_csv(DATA_PATH + get_file())
                 selected_fwd = cost_wrapper(fwds, "Forward").loc[:, ['Name', 'Fifa_ID']]
                 selected_mid = cost_wrapper(mids, "Midfielder").loc[:, ['Name', 'Fifa_ID']]
                 selected_defender = cost_wrapper(defs, "Defender").loc[:, ['Name', 'Fifa_ID']]
                 selected_goalkeeper = cost_wrapper(goalies, "Goalkeeper").loc[:, ['Name', 'Fifa_ID']]
 
+                # Shooting metrics for forwards to be analyzed
                 forward_metrics = ["ID", "Heading", "ShotPower", "Finishing", "LongShots", "Curve", "FKAcc", "Penalties",
                                    "Volleys", "Overal"]
+                # Defending metrics for defenders to be analyzed
                 defender_metrics = ["ID", "Marking", "SlideTackle", "StandTackle", "Interceptions", "Stamina", "Overal"]
+                # Midfield metrics for midfielders to be analyzed
                 mids_metrics = ["ID", "Crossing", "ShortPass", "LongPass", "Vision", "BallControl", "Agility", "Dribbling",
                                 "Reactions", "Interceptions", "Overal"]
+                # Goalkeeper metrics for goalkeepers to be analyzed
                 goalkeeper_metrics = ["ID", "GKPositioning", "GKDiving", "GKHandling", "GKKicking", "GKReflexes", "Overal"]
 
                 selected_fwd = selected_fwd.merge(fifa.loc[:, forward_metrics], how="left", left_on="Fifa_ID",
@@ -153,20 +172,17 @@ while (True):
                 midfield_score = []
                 defender_score = []
                 goalkeeper_score = []
+                # Finding the mean of all attributes to give an overview of the team drafted
                 for item in forward_metrics[1:]:
-                    #print(item)
                     forward_score.append(np.mean(selected_fwd[item]))
                 for item in defender_metrics[1:]:
-                    #print(item)
                     defender_score.append(np.mean(selected_defender[item]))
                 for item in mids_metrics[1:]:
-                    #print(item)
                     midfield_score.append(np.mean(selected_mid[item]))
                 for item in goalkeeper_metrics[1:]:
-                    #print(item)
                     goalkeeper_score.append(np.mean(selected_goalkeeper[item]))
 
-                #Populating piechart based on the metrics of the recommended players
+                # Populating piechart based on the metrics of the recommended players
                 plots.pie_subplot(forward_metrics, forward_score, mids_metrics, midfield_score,
                                   "Pie Chart with Forwards and Midfield metrics of our selected team",
                                   "Forwards", "Midfielders")
@@ -186,10 +202,6 @@ while (True):
                                                    "Points per Game", 'points_per_game', 0.01,
                                                    selected_fwd,selected_mid,selected_defender,
                                                    selected_goalkeeper)
-                # print(dict(zip(forward_metrics, forward_score)))
-                # print(dict(zip(mids_metrics, midfield_score)))
-                # print(dict(zip(defender_metrics, defender_score)))
-                # print(dict(zip(goalkeeper_metrics, goalkeeper_score)))
                 break
             elif (player_pick_selection == "4"):
                 break
