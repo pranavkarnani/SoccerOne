@@ -142,7 +142,7 @@ while (True):
 
                 selected_fwd = selected_fwd.merge(fifa.loc[:, forward_metrics], how="left", left_on="Fifa_ID",
                                                   right_on="ID")
-                print(selected_fwd)
+                #print(selected_fwd)
                 selected_mid = selected_mid.merge(fifa.loc[:, mids_metrics], how="left", left_on="Fifa_ID",
                                                   right_on="ID")
                 selected_defender = selected_defender.merge(fifa.loc[:, defender_metrics], how="left",
@@ -154,23 +154,25 @@ while (True):
                 defender_score = []
                 goalkeeper_score = []
                 for item in forward_metrics[1:]:
-                    print(item)
+                    #print(item)
                     forward_score.append(np.mean(selected_fwd[item]))
                 for item in defender_metrics[1:]:
-                    print(item)
+                    #print(item)
                     defender_score.append(np.mean(selected_defender[item]))
                 for item in mids_metrics[1:]:
-                    print(item)
+                    #print(item)
                     midfield_score.append(np.mean(selected_mid[item]))
                 for item in goalkeeper_metrics[1:]:
-                    print(item)
+                    #print(item)
                     goalkeeper_score.append(np.mean(selected_goalkeeper[item]))
 
-                print(dict(zip(forward_metrics, forward_score)))
-                print(dict(zip(mids_metrics, midfield_score)))
-                print(dict(zip(defender_metrics, defender_score)))
-                print(dict(zip(goalkeeper_metrics, goalkeeper_score)))
-
+                plots.pie_subplot(forward_metrics, forward_score, mids_metrics, midfield_score, defender_metrics, defender_score,
+                            goalkeeper_metrics, goalkeeper_score, "Pie Chart with Metrics of our selected team")
+                # print(dict(zip(forward_metrics, forward_score)))
+                # print(dict(zip(mids_metrics, midfield_score)))
+                # print(dict(zip(defender_metrics, defender_score)))
+                # print(dict(zip(goalkeeper_metrics, goalkeeper_score)))
+                break
             elif (player_pick_selection == "4"):
                 break
 
@@ -204,8 +206,11 @@ while (True):
     elif (first_selection == "3"):
         fd.fixture_difficulty()
     elif (first_selection == "4"):
-        print( "Details of player mentions from News")
-        plots.player_news_plots()
+        while(True):
+            print( "Details of player mentions from News")
+            plots.player_news_plots()
+            break
+
     elif (first_selection == "5"):
         break
     else:

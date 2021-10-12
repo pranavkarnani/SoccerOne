@@ -15,6 +15,8 @@ def get_date(filename):
     m, d, y = map(int, matched.groups())
     return datetime.date(y, m, d)
 
+# Clean the player stats and then extract the relevant info that we need and store it in a csv called
+# PlayerOverall
 def Player_Overall_cleaner():
     file_list = os.listdir(DATA_PATH)
     print(file_list)

@@ -12,6 +12,7 @@ FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))
 ROOT_DIR = os.path.abspath(os.path.join(FILE_PATH, '..'))
 DATA_PATH = ROOT_DIR + '/data/'
 
+# Function to build radar charts for the different player stats that we have scraped
 def radar_charts_player_stats(*argv):
     categories = ['Ball_Skills', 'Defence', 'Physical', 'Shooting', 'Mental', 'Passing', 'Goalkeeper']
     categories = [*categories, categories[0]]
@@ -91,6 +92,7 @@ def subplot_scatter(graphs, fwds, mids, defenders, goalies, xaxis, yaxis, y,mark
         fig.update_yaxes(title_text=yaxis, row=1, col=1)
 
 
+# Get the traces for individual scatter plots that are populated in the subplot_scatter
 def get_fig_scatter(df, y):
     df[y + '_int'] = df[y].astype(int)
     trace = go.Scatter(
@@ -109,7 +111,7 @@ def get_fig_scatter(df, y):
     return trace
 
 # Send over a df and then we build the chart from the points column
-# X will be points column and y will just be a column wiht one value
+# X will be points column and y will just be a column with one value
 # color will be based on player name
 def expected_points(df):
     fig = px.bar(df, x="ep_this", y="Team", color='Name',
@@ -121,18 +123,42 @@ def expected_points(df):
 
     fig.show()
 
+#Dot chart to build the number of times a player has been mentioned in the news
 def player_news_plots():
     player_news = pd.read_csv(DATA_PATH+"featured.csv")
     fig, ax = plt.subplots(figsize=(16, 10), dpi=80)
     ax.hlines(y=player_news.Player, xmin=1, xmax=5, color='gray', alpha=0.7, linewidth=1, linestyles='dashdot')
-    ax.scatter(y=player_news.Player, x=player_news.Times, s=75, color='firebrick', alpha=0.7)
+    ax.scatter(y=player_news.Player, x=player_news.Times, s=75, color='orange', alpha=0.7)
 
     # Title, Label, Ticks and Ylim
     ax.set_title('No. of times players are mentioned in the news', fontdict={'size': 22})
     ax.set_xlabel('News mentions')
     ax.set_yticks(player_news.Player)
     ax.set_yticklabels(player_news.Player, fontdict={'horizontalalignment': 'right'})
-    ax.set_xlim(0, 8)
+    ax.set_xlim(0, 6)
     plt.show()
+
+# Build a subplot with all the pie charts that have been built based on player metrics and score
+def pie_subplot(fwd_metrics,fwd_score,mids_metrics,midfield_score,defender_metrics,defender_score,
+                goalkeeper_metrics,goalkeeper_score,title):
+    fig = make_subplots(rows=2, cols=2, specs=[[{"type": "pie"}, {"type": "pie"}],
+                                                             [{"type": "pie"}, {"type": "pie"}]],
+                        subplot_titles=("Forwards", "Midfielders", "Defenders", "Goalkeepers"))
+    fig.add_trace(position_analytics_pie(fwd_metrics, fwd_score), row=1, col=1)
+    fig.add_trace(position_analytics_pie(mids_metrics, midfield_score), row=1, col=2)
+    fig.add_trace(position_analytics_pie(defender_metrics, defender_score), row=2, col=1)
+    fig.add_trace(position_analytics_pie(goalkeeper_metrics, goalkeeper_score), row=2, col=2)
+
+    fig.update_layout(title_text=title)
+    fig.show()
+
+# Return the individual traces for the subplot function above using metrics and score.
+def position_analytics_pie(metrics,score):
+   trace = go.Pie(
+        values=score[1:],
+        labels=metrics[1:]
+        )
+   return trace
+
 
 
