@@ -24,20 +24,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/venv/data/players-10-09-2021.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="/venv/data/players-10-11-2021.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/venv/data/season_player_stats_df.csv">
           <value>
             <Attribute>
