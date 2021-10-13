@@ -141,40 +141,40 @@ def recommended_players_encircle(graphs, fwds, mids, defenders, goalies, xaxis, 
         for i in selected_goalie_fifa_id:
             selected_goalie_points = selected_goalie_points.append(goalies.loc[goalies['Fifa_ID'] == i])
 
-        print(selected_fwd_points[['Name','Fifa_ID','ep_this','now_cost']])
-        print(selected_mid_points[['Name','Fifa_ID','ep_this','now_cost']])
-        print(selected_def_points[['Name','Fifa_ID','ep_this','now_cost']])
-        print(selected_goalie_points[['Name','Fifa_ID','ep_this','now_cost']])
-
-        print(selected_fwd_points['now_cost'].min())
-        print(selected_fwd_points['now_cost'].max())
+        # print(selected_fwd_points[['Name','Fifa_ID','ep_this','now_cost']])
+        # print(selected_mid_points[['Name','Fifa_ID','ep_this','now_cost']])
+        # print(selected_def_points[['Name','Fifa_ID','ep_this','now_cost']])
+        # print(selected_goalie_points[['Name','Fifa_ID','ep_this','now_cost']])
+        #
+        # print(selected_fwd_points['now_cost'].min())
+        # print(selected_fwd_points['now_cost'].max())
         fig.add_shape(type="circle",
                       xref="paper", yref="paper",
                       x0=selected_fwd_points['now_cost'].min(), y0=selected_fwd_points['ep_this'].min(),
                       x1=selected_fwd_points['now_cost'].max(), y1=selected_fwd_points['ep_this'].max(),
-                      opacity=0.1,
-                      line_color="#00008B",
+                      opacity=0.4,
+                      line_color="#00008b",
                       fillcolor="#ADD8E6",
                       row=1,
                       col=1
                       )
         fig.add_shape(type="circle",
-                      xref="x", yref="y",
+                      xref="paper", yref="paper",
                       x0=selected_mid_points['now_cost'].min(), y0=selected_mid_points['ep_this'].min(),
                       x1=selected_mid_points['now_cost'].max(), y1=selected_mid_points['ep_this'].max(),
                       opacity=0.1,
-                      line_color="blue",
-                      fillcolor="#ADD8E6",
+                      line_color="#8B0000",
+                      fillcolor="#FF7F7F",
                       row=1,
                       col=2
                       )
         fig.add_shape(type="circle",
-                      xref="x", yref="y",
+                      xref="paper", yref="paper",
                       x0=selected_def_points['now_cost'].min(), y0=selected_def_points['ep_this'].min(),
                       x1=selected_def_points['now_cost'].max(), y1=selected_def_points['ep_this'].max(),
                       opacity=0.1,
-                      line_color="blue",
-                      fillcolor="#ADD8E6",
+                      line_color="#030B07",
+                      fillcolor="#90EE90",
                       row=2,
                       col=1
                       )
@@ -183,8 +183,8 @@ def recommended_players_encircle(graphs, fwds, mids, defenders, goalies, xaxis, 
                       x0=selected_goalie_points['now_cost'].min(), y0=selected_goalie_points['ep_this'].min(),
                       x1=selected_goalie_points['now_cost'].max(), y1=selected_goalie_points['ep_this'].max(),
                       opacity=0.1,
-                      line_color="blue",
-                      fillcolor="#ADD8E6",
+                      line_color="#290916",
+                      fillcolor="#CBC3E3",
                       row=2,
                       col=2
                       )
