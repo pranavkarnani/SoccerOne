@@ -19,8 +19,6 @@ def get_date(filename):
 # PlayerOverall
 def Player_Overall_cleaner():
     file_list = os.listdir(DATA_PATH)
-    print(file_list)
-
 
     dates = (get_date(fn) for fn in file_list)
     dates = (d for d in dates if d is not None)
@@ -28,11 +26,11 @@ def Player_Overall_cleaner():
     last_date = last_date.strftime('%m-%d-%Y')
     latest_file = [fn for fn in file_list if last_date in fn]
 
-    #Getting the file name with the latest date
+    # Getting the file name with the latest date
     workbook = pd.read_csv(DATA_PATH+latest_file[0])
     workbookSeason = pd.read_csv(DATA_PATH+latest_file[0])
 
-    #Cleaning for Ball Control and Dribbling
+    # Cleaning for Ball Control and Dribbling
     workbook = workbook[~workbook.BallControl.astype(str).str.contains("BallControl")]
     workbook = workbook[~workbook.Dribbling.astype(str).str.contains("Dribbling")]
 
@@ -45,7 +43,7 @@ def Player_Overall_cleaner():
 
 
 
-    #Cleaning for Acceleration,Stamina,Strength,Balance,SprintSpeed,Agility,Jumping
+    # Cleaning for Acceleration,Stamina,Strength,Balance,SprintSpeed,Agility,Jumping
     workbook = workbook[~workbook.Acceleration.astype(str).str.contains("Acceleration")]
     workbook = workbook[~workbook.Stamina.astype(str).str.contains("Stamina")]
     workbook = workbook[~workbook.Strength.astype(str).str.contains("Strength")]
@@ -58,7 +56,7 @@ def Player_Overall_cleaner():
                                 workbook['Jumping'].astype(int)
                                 )/7
 
-    #Cleaning for Heading,ShotPower,Finishing,LongShots,Curve,FKAcc,Penalties,Volleys
+    # Cleaning for Heading,ShotPower,Finishing,LongShots,Curve,FKAcc,Penalties,Volleys
     workbook = workbook[~workbook.Heading.astype(str).str.contains("Heading")]
     workbook = workbook[~workbook.ShotPower.astype(str).str.contains("ShotPower")]
     workbook = workbook[~workbook.Finishing.astype(str).str.contains("Finishing")]
@@ -75,7 +73,7 @@ def Player_Overall_cleaner():
                                 )/8
 
 
-    #Cleaning for Aggression,Reactions,AttPosition,Interceptions,Vision,Composure
+    # Cleaning for Aggression,Reactions,AttPosition,Interceptions,Vision,Composure
     workbook = workbook[~workbook.Aggression.astype(str).str.contains("Aggression")]
     workbook = workbook[~workbook.Reactions.astype(str).str.contains("Reactions")]
     workbook = workbook[~workbook.AttPosition.astype(str).str.contains("AttPosition", na=False)]
@@ -89,7 +87,7 @@ def Player_Overall_cleaner():
                                 workbook['Vision'].astype(int) + workbook['Composure'].astype(int)
                             )/6
 
-    #Cleaning for Crossing,Short Pass,Long Pass
+    # Cleaning for Crossing,Short Pass,Long Pass
     workbook = workbook[~workbook.Crossing.astype(str).str.contains("Crossing")]
     workbook = workbook[~workbook.ShortPass.astype(str).str.contains("ShortPass")]
     workbook = workbook[~workbook.LongPass.astype(str).str.contains("LongPass")]
@@ -100,7 +98,7 @@ def Player_Overall_cleaner():
 
                             )/3
 
-    #Cleaning for GKPositioning,GKDiving GKHandling,GKKicking,GKReflexes
+    # Cleaning for GKPositioning,GKDiving GKHandling,GKKicking,GKReflexes
     workbook = workbook[~workbook.Crossing.astype(str).str.contains("GKPositioning")]
     workbook = workbook[~workbook.ShortPass.astype(str).str.contains("GKDiving")]
     workbook = workbook[~workbook.LongPass.astype(str).str.contains("GKHandling")]
@@ -117,8 +115,6 @@ def Player_Overall_cleaner():
     new_workbook['ID'] = workbook['ID']
     new_workbook['Name'] = workbook['Name']
     new_workbook['Overal'] = workbook['Overal']
-
-    print(new_workbook.info())
 
     new_workbook.to_csv(DATA_PATH+'player_overall.csv')
 

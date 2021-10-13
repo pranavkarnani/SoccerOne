@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
 from plotly.subplots import make_subplots
-import models.PlayerOverall as po
+import data_processors.PlayerOverall as po
 import plotly.express as px
 import os
 import pandas as pd
@@ -18,10 +18,8 @@ def radar_charts_player_stats(*argv):
     categories = [*categories, categories[0]]
     if len(argv) == 1:
         player_df = po.overall_id(argv[0].Fifa_ID)
-        print(player_df[['Name','Overal']])
         player = player_df.iloc[0, 1:8]
         player = [*player, player[0]]
-        # print(player)
         fig = go.Figure(
             data=[
                 go.Scatterpolar(r=player, theta=categories, fill='toself', name=player_df.Name.to_string()),
@@ -40,9 +38,7 @@ def radar_charts_player_stats(*argv):
         player_1 = [*player_1, player_1[0]]
         player_2 = player_df_2.iloc[0, 1:8]
         player_2 = [*player_2, player_2[0]]
-        # print(player_1)
-        # print(player_2)
-        print(player_df_2[['Name', 'Overal']])
+
         fig = go.Figure(
             data=[
                 go.Scatterpolar(r=player_1, theta=categories, fill='toself', name=player_df_1.Name.to_string()),
@@ -134,24 +130,13 @@ def recommended_players_encircle(graphs, fwds, mids, defenders, goalies, xaxis, 
         selected_mid_points = []
         selected_def_points = []
         selected_goalie_points = []
-        print(fwds[['Fifa_ID','ep_this','now_cost']])
 
-        for i in selected_fwd_fifa_id:
-            print(fwds[['Fifa_ID']==i])
-            #selected_fwd_points.append(fwds[['Fifa_ID']==i])
         for i in selected_mid_fifa_id:
             selected_mid_points.append(fwds[['Fifa_ID']==i])
         for i in selected_def_fifa_id:
             selected_def_points.append(fwds[['Fifa_ID']==i])
         for i in selected_goalie_fifa_id:
             selected_goalie_points.append(fwds[['Fifa_ID']==i])
-
-        print(selected_fwd_points)
-        print(selected_mid_points)
-        print(selected_def_points)
-        print(selected_goalie_points)
-
-
 
         fig.add_shape(type="circle",
                       xref="x", yref="y",
