@@ -235,6 +235,7 @@ while (True):
                 pass
     elif (first_selection == "3"):
         fd.fixture_difficulty()
+
     elif (first_selection == "4"):
         while(True):
             print( "Details of player mentions from News")
