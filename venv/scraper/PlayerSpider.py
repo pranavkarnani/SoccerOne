@@ -1,3 +1,11 @@
+# File: PlayerSpider.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+# Driver Code - Spiders, Scrapers, API Calls, CSV Download data source
+# Imports - get fantasy premier league data - scraper.FantasyPL.py
+#         - get player model class object - models.Player.py
+#         - get latest news - scraper.News.py
+#         - clean latest news - data_processors.NewsCleaner.News.py
+
 import os
 import scrapy
 import time

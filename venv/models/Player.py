@@ -1,3 +1,5 @@
+# File: Player.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
 # Player Model Class
 # Referred from PlayerSpider class to create player objects and store player attributes
 from scrapy import Item, Field

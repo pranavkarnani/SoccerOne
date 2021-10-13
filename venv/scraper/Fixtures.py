@@ -1,3 +1,7 @@
+# File: Fixtures.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+# Fetches all fixtures from the CSV file
+
 import requests
 from urllib.request import urlopen
 import pandas as pd

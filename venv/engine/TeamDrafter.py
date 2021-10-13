@@ -1,3 +1,6 @@
+# File: TeamDrafter.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+
 import os
 import re
 

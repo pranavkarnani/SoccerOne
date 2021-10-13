@@ -1,3 +1,5 @@
+# File: News.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
 # File - fetches all news with query as Premier League from Google News using beautiful soup
 # Auto - scheduled scraper which is invoked everyday at 1:30 PM
 

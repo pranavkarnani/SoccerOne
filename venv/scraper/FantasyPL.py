@@ -1,3 +1,7 @@
+# File: FantasyPL.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+# Driver Code - Spiders, Scrapers, API Calls, CSV Download data source
+# Imports - get fantasy premier league fixtures - scraper.Fixtures.py
 # File to get all data provided by the Fantasy Premier League's official website using an API
 # Auto - scheduled fetcher which is invoked everyday at 1:30 PM
 

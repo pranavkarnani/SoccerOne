@@ -1,5 +1,6 @@
 # Cleans all news headlines and fetches the players featured today
-
+# File: NewsCleaner.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
 import os
 import nltk
 import pandas as pd

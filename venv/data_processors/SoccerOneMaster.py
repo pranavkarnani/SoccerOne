@@ -1,6 +1,10 @@
+# File: SoccerOneMaster.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+
 # Creates the soccer one master file which contains references to all other csv's
 # SoccerOneMaster.csv contains the player name, postion, fantasy premier league player ID and fifa ID
 # One CSV that will fetch you records from every CSV that exists
+
 import os
 import re
 import datetime

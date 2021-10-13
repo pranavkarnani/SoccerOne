@@ -1,6 +1,15 @@
+# File: main_menu.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+# Driver Code - Menu driven
+# Imports - plot helper file - models.plots.py
+#         - fixture difficulty file - engine.fixture_difficulty.py
+#         - data cleaning for fifa statistics - data_processors.PlayerOverall.py
+#         - team drafter to get the best player - engine.TeamDrafter.py
+# Curates the soccer one master file which contains records to all other CSV's, following databased retrieval principles
+# Removes transitive dependencies
+
 import numpy as np
 from data_processors.SoccerOneMaster import makeMaster
-from data_processors.FifaCleaner import cleanFifa
 from engine.TeamDrafter import make_team, cost_wrapper
 import os
 import re
@@ -10,8 +19,6 @@ import models.plots as plots
 import engine.fixture_difficulty as fd
 from data_processors.PlayerOverall import Player_Overall_cleaner
 
-# Curates the soccer one master file which contains records to all other CSV's, following databased retrieval principles
-# Removes transitive dependencies
 makeMaster()
 Player_Overall_cleaner()
 FILE_PATH = os.path.abspath(os.path.join(__file__, '..'))

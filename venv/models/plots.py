@@ -1,3 +1,7 @@
+# File: plots.py
+# Names: Jaison Jose, Neha Joshi, Pranav Karnani, Preet Jain
+# Imports - Generates player overall csv - data_processors.PlayerOverall.py
+
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import plotly.offline as pyo
