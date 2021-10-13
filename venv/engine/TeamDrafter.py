@@ -109,7 +109,7 @@ def analyze(players, player_type):
         players_to_analyze = len(normalized_players)
 
     normalized_players = normalized_players.sort_values(
-        by='aggregate', ascending=False).reset_index().drop(["index"], axis=1)
+        by=['aggregate'], ascending=False).reset_index().drop(["index"], axis=1)
     # Status stores the player selection status
     normalized_players['status'] = 0
     normalized_players = normalized_players.head(players_to_analyze)
@@ -121,7 +121,7 @@ def cost_wrapper(players, player_type):
     cost = 100
     # Fetches the best 3 forwards that can be bought for $21
     if player_type == "Forward":
-        selected = cost_analysis(players, 21, 3)
+        selected = cost_analysis(players, 24, 3, player_type)
         cost -= np.sum(selected['now_cost'])
         return selected
 
@@ -133,13 +133,13 @@ def cost_wrapper(players, player_type):
 
     # Fetches the best 5 defenders that can be bought for $28
     elif player_type == "Defender":
-        selected = cost_analysis(players, 28, 5, player_type)
+        selected = cost_analysis(players, 30, 5, player_type)
         cost -= np.sum(selected['now_cost'])
         return selected
 
-    # Fetches the best 5 midfielders that can be bought for $40
+    # Fetches the best 5 midfielders that can be bought for $38
     elif player_type == "Midfielder":
-        selected = cost_analysis(players, 40, 5, player_type)
+        selected = cost_analysis(players, 35, 5, player_type)
         cost -= np.sum(selected['now_cost'])
         return selected
 
@@ -151,10 +151,15 @@ def cost_analysis(players, cost, number, player_type=None):
     top_player_count = 1
     mid_player_count = number - efficient_player_count - top_player_count
 
+    if player_type == "Forward":
+        top_player_count = 1
+        efficient_player_count = 1
+        mid_player_count = 1
+
     if player_type == "Defender":
-        top_player_count = 3
-        efficient_player_count = 2
-        mid_player_count = 0
+        top_player_count = 1
+        efficient_player_count = 3
+        mid_player_count = 1
 
     # Midfielders make the most points hence all 5 top players are selected  within the provided budget
     if player_type == "Midfielder":
@@ -162,7 +167,7 @@ def cost_analysis(players, cost, number, player_type=None):
         mid_player_count = 0
         efficient_player_count = 0
 
-    # Selects the top players within the provided  budget
+    # Selects the top players within the provided budget
     for index, row in players.iterrows():
         if top_player_count == 0:
             break
@@ -170,18 +175,6 @@ def cost_analysis(players, cost, number, player_type=None):
             players_selected.append(row['Fpl_ID'])
             players.loc[index, ['status']] = 1
             top_player_count -= 1
-            cost = cost - row['now_cost']
-
-    # Selects the mid range players (underdogs) within the provided  budget
-    players = players.sort_values(
-        by='now_cost', ascending=True).reset_index().drop(["index"], axis=1)
-    for index, row in players.iterrows():
-        if mid_player_count == 0:
-            break
-        if row['Fpl_ID'] not in players_selected and cost > row['now_cost']:
-            players_selected.append(row['Fpl_ID'])
-            players.loc[index, ['status']] = 1
-            mid_player_count -= 1
             cost = cost - row['now_cost']
 
     # Selects the most efficient players within the provided budget
@@ -193,6 +186,19 @@ def cost_analysis(players, cost, number, player_type=None):
             players_selected.append(row['Fpl_ID'])
             players.loc[index, ['status']] = 1
             efficient_player_count -= 1
+            cost = cost - row['now_cost']
+
+    # Selects the mid range players (underdogs) within the provided  budget
+
+    players = players.sort_values(
+        by='now_cost', ascending=False).reset_index().drop(["index"], axis=1)
+    for index, row in players.iterrows():
+        if mid_player_count == 0:
+            break
+        if row['Fpl_ID'] not in players_selected and cost > row['now_cost']:
+            players_selected.append(row['Fpl_ID'])
+            players.loc[index, ['status']] = 1
+            mid_player_count -= 1
             cost = cost - row['now_cost']
 
     players = players.sort_values(by='aggregate', ascending=False).reset_index().drop(["index"], axis=1)
