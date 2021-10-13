@@ -126,27 +126,67 @@ def recommended_players_encircle(graphs, fwds, mids, defenders, goalies, xaxis, 
         selected_mid_fifa_id = selected_mid['Fifa_ID']
         selected_def_fifa_id = selected_def['Fifa_ID']
         selected_goalie_fifa_id = selected_goalies['Fifa_ID']
-        selected_fwd_points = []
-        selected_mid_points = []
-        selected_def_points = []
-        selected_goalie_points = []
+        selected_fwd_points = pd.DataFrame()
+        selected_mid_points = pd.DataFrame()
+        selected_def_points = pd.DataFrame()
+        selected_goalie_points = pd.DataFrame()
+        #print(fwds[['Fifa_ID','ep_this','now_cost']])
 
+        for i in selected_fwd_fifa_id:
+            selected_fwd_points = selected_fwd_points.append(fwds.loc[fwds['Fifa_ID'] == i])
         for i in selected_mid_fifa_id:
-            selected_mid_points.append(fwds[['Fifa_ID']==i])
+            selected_mid_points = selected_mid_points.append(mids.loc[mids['Fifa_ID'] == i])
         for i in selected_def_fifa_id:
-            selected_def_points.append(fwds[['Fifa_ID']==i])
+            selected_def_points = selected_def_points.append(defenders.loc[defenders['Fifa_ID'] == i])
         for i in selected_goalie_fifa_id:
-            selected_goalie_points.append(fwds[['Fifa_ID']==i])
+            selected_goalie_points = selected_goalie_points.append(goalies.loc[goalies['Fifa_ID'] == i])
 
+        print(selected_fwd_points[['Name','Fifa_ID','ep_this','now_cost']])
+        print(selected_mid_points[['Name','Fifa_ID','ep_this','now_cost']])
+        print(selected_def_points[['Name','Fifa_ID','ep_this','now_cost']])
+        print(selected_goalie_points[['Name','Fifa_ID','ep_this','now_cost']])
+
+        print(selected_fwd_points['now_cost'].min())
+        print(selected_fwd_points['now_cost'].max())
         fig.add_shape(type="circle",
-                      xref="x", yref="y",
-                      x0=1, y0=2,
-                      x1=3, y1=4,
-                      opacity=0.2,
-                      fillcolor="blue",
-                      line_color="blue",
+                      xref="paper", yref="paper",
+                      x0=selected_fwd_points['now_cost'].min(), y0=selected_fwd_points['ep_this'].min(),
+                      x1=selected_fwd_points['now_cost'].max(), y1=selected_fwd_points['ep_this'].max(),
+                      opacity=0.1,
+                      line_color="#00008B",
+                      fillcolor="#ADD8E6",
                       row=1,
                       col=1
+                      )
+        fig.add_shape(type="circle",
+                      xref="x", yref="y",
+                      x0=selected_mid_points['now_cost'].min(), y0=selected_mid_points['ep_this'].min(),
+                      x1=selected_mid_points['now_cost'].max(), y1=selected_mid_points['ep_this'].max(),
+                      opacity=0.1,
+                      line_color="blue",
+                      fillcolor="#ADD8E6",
+                      row=1,
+                      col=2
+                      )
+        fig.add_shape(type="circle",
+                      xref="x", yref="y",
+                      x0=selected_def_points['now_cost'].min(), y0=selected_def_points['ep_this'].min(),
+                      x1=selected_def_points['now_cost'].max(), y1=selected_def_points['ep_this'].max(),
+                      opacity=0.1,
+                      line_color="blue",
+                      fillcolor="#ADD8E6",
+                      row=2,
+                      col=1
+                      )
+        fig.add_shape(type="circle",
+                      xref="x", yref="y",
+                      x0=selected_goalie_points['now_cost'].min(), y0=selected_goalie_points['ep_this'].min(),
+                      x1=selected_goalie_points['now_cost'].max(), y1=selected_goalie_points['ep_this'].max(),
+                      opacity=0.1,
+                      line_color="blue",
+                      fillcolor="#ADD8E6",
+                      row=2,
+                      col=2
                       )
         fig.update_traces(
             mode='markers',
