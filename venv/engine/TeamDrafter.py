@@ -119,7 +119,7 @@ def analyze(players, player_type):
 # Cost wrapper function called by the main_menu file to fetch the top 15 players required in the team
 def cost_wrapper(players, player_type):
     cost = 100
-    # Fetches the best 3 forwards that can be bought for $21
+    # Fetches the best 3 forwards that can be bought for $24
     if player_type == "Forward":
         selected = cost_analysis(players, 24, 3, player_type)
         cost -= np.sum(selected['now_cost'])
@@ -131,13 +131,13 @@ def cost_wrapper(players, player_type):
         cost -= np.sum(selected['now_cost'])
         return selected
 
-    # Fetches the best 5 defenders that can be bought for $28
+    # Fetches the best 5 defenders that can be bought for $30
     elif player_type == "Defender":
         selected = cost_analysis(players, 30, 5, player_type)
         cost -= np.sum(selected['now_cost'])
         return selected
 
-    # Fetches the best 5 midfielders that can be bought for $38
+    # Fetches the best 5 midfielders that can be bought for $35
     elif player_type == "Midfielder":
         selected = cost_analysis(players, 35, 5, player_type)
         cost -= np.sum(selected['now_cost'])
